@@ -1,3 +1,4 @@
+const TagType = require('../../models/TagType')
 const Tag = require('../../models/Tag')
 const Product = require('../../models/Product')
 
@@ -25,11 +26,17 @@ module.exports = async function getAll(req, res, modelName) {
   )
   if (modelName === Product) {
     const filteredValues = Object.values(filteredData).flat(Infinity)
+
+    // console.log('filteredValues');
+    // console.log(filteredValues);
+
     if (Object.keys(filteredData).length) {
+      // const result = await Tag.find({slug: {$all: [...filteredValues]}})
       const result = await Tag.find({slug: {$in: [...filteredValues]}})
-      filteredData["tagsIds"] = {$in: result.map(item => item._id)}
+      filteredData["tagsIds"] = {$all: result.map(item => item._id)}
     }
   }
+
   await modelName.paginate({...filteredData}, options, function (err, result) {
     // result.docs
     // result.totalDocs = 100

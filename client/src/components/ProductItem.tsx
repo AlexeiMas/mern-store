@@ -31,7 +31,7 @@ const ProductItem: React.FC<TProductItemProps> = ({title, description, price, im
           src={process.env.REACT_APP_API_URL! + image}
         />
         <Card.Body style={{cursor: "default"}}>
-          <Card.Subtitle>{title}</Card.Subtitle>
+          <Card.Subtitle style={{height: '2.5rem', overflow: 'hidden'}}>{title}</Card.Subtitle>
           <Card.Text style={{height: '4.8rem', overflow: 'hidden'}}>
             {description}
           </Card.Text>
