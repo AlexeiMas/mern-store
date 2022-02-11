@@ -8,7 +8,6 @@ const NavBar = () => {
   const navigate = useNavigate()
   const {pathname} = useLocation()
   const [cartShow, setCartShow] = useState<boolean>(false)
-  const [search, setSearch] = useState<string>('')
 
   const modalCart = (
     <CartModal
@@ -17,28 +16,12 @@ const NavBar = () => {
     />
   )
 
-  const onSearchHandler = () => {
-    navigate(`/title=${search}`)
-  }
-
-  // console.log(search)
-
   return (
     <>
       <Navbar bg="dark" variant="dark" sticky={"top"}>
         <Container>
           <Navbar.Brand style={{cursor: "default", userSelect: "none"}} onClick={() => navigate(HOME_ROUTE)}>SIMPLE
             STORE</Navbar.Brand>
-          <Form className="d-flex m-auto col-5">
-            <FormControl
-              onChange={(e) => setSearch(e.target.value)}
-              type="search"
-              placeholder="I search ..."
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="info" onClick={() => onSearchHandler()}>Search</Button>
-          </Form>
           <Button
             variant="outline-secondary"
             className="d-flex align-items-center"

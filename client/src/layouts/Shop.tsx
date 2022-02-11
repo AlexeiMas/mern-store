@@ -1,13 +1,14 @@
 import React from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 import NavBar from "../components/NavBar";
+import {HOME_ROUTE} from "../utils/consts";
 import {Breadcrumb, Container, Row} from "react-bootstrap";
 
 const Shop = () => {
   const {pathname} = useLocation()
   const navigate = useNavigate()
   const filteredCrumbs = pathname.split('/').filter(item => item !== '' && !item.includes('='))
-
+  console.log(filteredCrumbs)
   return (
     <>
       <NavBar/>
@@ -19,7 +20,7 @@ const Shop = () => {
             </Breadcrumb.Item>
             {filteredCrumbs.map((item, i, arr) =>
               <Breadcrumb.Item
-                onClick={() => i !== arr.length - 1 && navigate('/')}
+                onClick={() => i !== arr.length - 1 && navigate(HOME_ROUTE)}
                 active={i === arr.length - 1}
                 className="text-capitalize"
                 key={item + i}

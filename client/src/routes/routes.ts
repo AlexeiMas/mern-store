@@ -3,9 +3,10 @@ import {
   CANCEL_ORDER,
   CHECKOUT_ROUTE,
   CRUD_USERS,
+  HOME_ROUTE,
   PRODUCT_ROUTE,
   PRODUCTS_ROUTE,
-  PRODUCTS_ROUTE_FILTERS,
+  SEARCH_ROUTE,
   SUCCESS_ORDER
 } from "../utils/consts";
 import CrudUsers from "../pages/CrudUsers";
@@ -15,6 +16,8 @@ import CatalogWrapper from "../components/CatalogWrapper";
 import Success from "../pages/Success";
 import Cancel from "../pages/Cancel";
 import AdminDashboard from "../pages/AdminDashboard"
+import Search from "../pages/Search";
+import Home from "../pages/Home";
 
 export type TRoutes = {
   path: string,
@@ -34,12 +37,20 @@ export const authRoutes: TRoutes[] = [
 
 export const publicRoutes: TRoutes[] = [
   {
+    path: HOME_ROUTE,
+    Component: Home
+  },
+  {
     path: PRODUCTS_ROUTE,
     Component: CatalogWrapper
   },
   {
-    path: PRODUCTS_ROUTE_FILTERS,
+    path: `${PRODUCTS_ROUTE}/:url`,
     Component: CatalogWrapper
+  },
+  {
+    path: SEARCH_ROUTE,
+    Component: Search
   },
   {
     path: CHECKOUT_ROUTE,

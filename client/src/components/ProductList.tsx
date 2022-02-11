@@ -5,11 +5,13 @@ import {fetchProducts} from "../http/productAPI";
 import {TServerData} from "../types/serverData";
 import {useLocation} from "react-router-dom"
 import {ProductDispatchContext, ProductStateContext} from "../context/ProductContext"
+import {HOME_ROUTE, PRODUCTS_ROUTE} from "../utils/consts";
 
 const ProductList = () => {
   const {pathname} = useLocation()
   const [products, setProducts] = useState<TServerData>()
   const [pagination, setPagination] = useState<React.ReactElement[]>([])
+  // const [checkedFilters, setCheckedFilters] = useState(useContext(ProductStateContext))
   const checkedFilters = useContext(ProductStateContext)
   const setCheckedFilters = useContext(ProductDispatchContext)
 
@@ -41,8 +43,20 @@ const ProductList = () => {
   }
 
   useEffect(() => {
-    fetchProducts(pathname).then(data => setProducts(data))
-    if (pathname === '/') {
+    let pathnameFilter;
+
+    console.log('pathname')
+    console.log(pathname)
+
+    if (pathname.includes('catalog')) {
+      pathnameFilter = pathname.split('catalog')[1]
+    }
+
+    console.log('pathnameFilter')
+    console.log(pathnameFilter)
+
+    fetchProducts(pathnameFilter).then(data => setProducts(data))
+    if (pathname === PRODUCTS_ROUTE) {
       setCheckedFilters({})
     }
   }, [pathname])

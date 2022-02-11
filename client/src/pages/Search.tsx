@@ -4,31 +4,30 @@ import {ProductDispatchContext, ProductStateContext} from "../context/ProductCon
 import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap"
 import TagTypeBar from "../components/TagTypeBar"
 import {useNavigate} from "react-router-dom";
-import {SEARCH_ROUTE} from "../utils/consts";
 
-const Catalog = () => {
-  const navigate = useNavigate()
-  const checkedFilters = useContext(ProductStateContext)
-  const setCheckedFilters = useContext(ProductDispatchContext)
-  const [sort, setSort] = useState<string>(checkedFilters.sort && checkedFilters.sort.join(','))
-  const [limit, setLimit] = useState<string>('5')
-  const [search, setSearch] = useState<string>('')
+const Search = () => {
+  // const navigate = useNavigate()
+  // const checkedFilters = useContext(ProductStateContext)
+  // const setCheckedFilters = useContext(ProductDispatchContext)
+  // const [sort, setSort] = useState<string>(checkedFilters.sort && checkedFilters.sort.join(','))
+  // const [limit, setLimit] = useState<string>('5')
+  // const [search, setSearch] = useState<string>('')
 
-  useEffect(() => {
-    setCheckedFilters({...checkedFilters, limit: [limit]})
-  }, [limit])
+  // useEffect(() => {
+  //   setCheckedFilters({...checkedFilters, limit: [limit]})
+  // }, [limit])
+  //
+  // useEffect(() => {
+  //   setCheckedFilters({...checkedFilters, sort: [sort]})
+  // }, [sort])
 
-  useEffect(() => {
-    setCheckedFilters({...checkedFilters, sort: [sort]})
-  }, [sort])
-
-  const onSearchHandler = () => {
-    console.log(SEARCH_ROUTE+'category')
-    // navigate(SEARCH_ROUTE + '/category=phone')
-    // // setCheckedFilters({})
-  }
-
-  console.log(search)
+  // const onSearchHandler = () => {
+  //   console.log(search)
+  //   // navigate(`/=${search}`)
+  //   // // setCheckedFilters({})
+  // }
+  //
+  // console.log(search)
 
   return (
     <>
@@ -41,7 +40,7 @@ const Catalog = () => {
             <InputGroup>
               <FormControl
                   style={{lineHeight: '2rem'}}
-                  onChange={(e) => setSearch(e.target.value)}
+                  // onChange={(e) => setSearch(e.target.value)}
                   type="search"
                   placeholder="I search ..."
                   aria-label="Search"
@@ -50,7 +49,7 @@ const Catalog = () => {
               <Button
                   variant="outline-secondary"
                   id="search"
-                  onClick={() => onSearchHandler()}
+                  // onClick={() => onSearchHandler()}
               >
                 Search
               </Button>
@@ -60,8 +59,8 @@ const Catalog = () => {
             <Row>
               <Col md={4}>
                 <Form.Select size="lg" name="limit"
-                             onChange={(e) => setLimit(e.target.value)}
-                             defaultValue={checkedFilters.limit ? checkedFilters.limit[0] : limit}
+                             // onChange={(e) => setLimit(e.target.value)}
+                             // defaultValue={checkedFilters.limit ? checkedFilters.limit[0] : limit}
                 >
                   <option disabled>Limit</option>
                   <option value="3">3</option>
@@ -71,7 +70,9 @@ const Catalog = () => {
                 </Form.Select>
               </Col>
               <Col md={8}>
-                <Form.Select size="lg" name="sort" onChange={(e) => setSort(e.target.value)}>
+                <Form.Select size="lg" name="sort"
+                             // onChange={(e) => setSort(e.target.value)}
+                >
                   <option disabled>Sort By</option>
                   <option value="title,1">Title ASC</option>
                   <option value="title,-1">Title DESC</option>
@@ -82,10 +83,10 @@ const Catalog = () => {
             </Row>
           </Col>
         </Row>
-        <ProductList/>
+        {/*<ProductList/>*/}
       </Col>
     </>
   );
 };
 
-export default Catalog;
+export default Search;

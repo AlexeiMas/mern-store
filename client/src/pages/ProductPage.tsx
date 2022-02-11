@@ -11,6 +11,7 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState<number>(1)
 
   useEffect(() => {
+    console.log(pathname);
     fetchProductData(slug).then(data => setProduct(data))
   }, [])
 

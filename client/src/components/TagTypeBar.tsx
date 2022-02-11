@@ -6,6 +6,7 @@ import {fetchTags} from '../http/tagAPI';
 import {useLocation, useNavigate} from "react-router-dom";
 import {ProductDispatchContext, ProductStateContext} from "../context/ProductContext"
 import {fetchProducts} from "../http/productAPI";
+import {PRODUCTS_ROUTE} from "../utils/consts";
 
 export type TCheckerStateItem = { [key: string]: Array<string> }
 
@@ -27,13 +28,26 @@ const TagTypeBar = () => {
     const setCheckedFilters = useContext(ProductDispatchContext)
 
     useEffect(() => {
+        let pathnameFilter;
+        if (pathname.includes('catalog')) {
+            pathnameFilter = pathname.split('catalog')[1]
+        }
         fetchTagTypes('pagination=false').then(data => setTagTypes(data))
         fetchTags('pagination=false').then(data => setTags(data))
-        fetchProducts(`${pathname}${pathname === '/' ? 'pagination=false' : ';pagination=false'}`).then(data => setProducts(data))
+
+        //TODO: fix error in line above
+        fetchProducts(`${pathnameFilter}${pathname === PRODUCTS_ROUTE ? 'pagination=false' : ';pagination=false'}`).then(data => setProducts(data))
     }, [pathname])
 
     useEffect(() => {
-        navigate('/' + encodeToUrlQueriesFormat(checkedFilters))
+        // console.log('PRODUCTS_ROUTE + encodeToUrlQueriesFormat(checkedFilters) in TagTypeBar')
+        // console.log(PRODUCTS_ROUTE + encodeToUrlQueriesFormat(checkedFilters))
+        // console.log('checkedFilters in TagTypeBar')
+        // console.log(checkedFilters)
+        // console.log('encodeToUrlQueriesFormat(checkedFilters)')
+        // console.log(encodeToUrlQueriesFormat(checkedFilters))
+        // encodeToUrlQueriesFormat(checkedFilters) !== '' ? navigate(PRODUCTS_ROUTE + '/' + encodeToUrlQueriesFormat(checkedFilters)) : navigate(PRODUCTS_ROUTE)
+        encodeToUrlQueriesFormat(checkedFilters) !== '' ? navigate(PRODUCTS_ROUTE + '/' + encodeToUrlQueriesFormat(checkedFilters)) : navigate(PRODUCTS_ROUTE)
     }, [checkedFilters])
 
     const tagIds = products && products.docs.map(item => item.tagsIds).flat(Infinity)
@@ -59,9 +73,7 @@ const TagTypeBar = () => {
             setTagTypes({...tagTypes, docs: tagTypes.docs.filter(item => uniqueTypeIds?.includes(item['_id']))})
         }
     }, [tags])
-
-    // console.log(uniqueIds)
-    console.log(tagTypes)
+    console.log(tagTypes, 'tagTypes')
     return (
         <Accordion defaultActiveKey={['0', '1', '2']} alwaysOpen>
             {tagTypes && tagTypes.docs.map((tagType, i) =>
