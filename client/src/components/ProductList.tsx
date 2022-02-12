@@ -5,7 +5,7 @@ import {fetchProducts} from "../http/productAPI";
 import {TServerData} from "../types/serverData";
 import {useLocation} from "react-router-dom"
 import {ProductDispatchContext, ProductStateContext} from "../context/ProductContext"
-import {HOME_ROUTE, PRODUCTS_ROUTE} from "../utils/consts";
+import {PRODUCTS_ROUTE} from "../utils/consts";
 
 const ProductList = () => {
   const {pathname} = useLocation()
@@ -43,17 +43,11 @@ const ProductList = () => {
   }
 
   useEffect(() => {
-    let pathnameFilter;
-
-    console.log('pathname')
-    console.log(pathname)
+    let pathnameFilter = '';
 
     if (pathname.includes('catalog')) {
       pathnameFilter = pathname.split('catalog')[1]
     }
-
-    console.log('pathnameFilter')
-    console.log(pathnameFilter)
 
     fetchProducts(pathnameFilter).then(data => setProducts(data))
     if (pathname === PRODUCTS_ROUTE) {

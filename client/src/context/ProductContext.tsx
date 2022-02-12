@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {useLocation} from "react-router-dom"
+import {Navigate, useLocation} from "react-router-dom"
 import {PRODUCTS_ROUTE} from "../utils/consts";
 
 export type TCheckerStateItem = { [key: string]: Array<string> }
@@ -9,20 +9,16 @@ export const ProductStateContext = React.createContext<TCheckerStateItem>({})
 export const ProductDispatchContext = React.createContext<TCheckerDispatch>(console.log)
 
 const decodeFromUrlQueriesFormat = (data: string): TCheckerStateItem => {
-  // console.log('data in decodeFromUrlQueriesFormat 1');
+  let dataUpdated = data;
+  if (data.includes('/catalog/')) {
+    let tempData;
+    tempData = data.split('/')
+    dataUpdated = tempData[tempData.length - 1]
+  }
   if (data === PRODUCTS_ROUTE) return {}
 
-  // if (data.includes('catalog/')) {
-  //   data = data.split('catalog/')[1];
-  // } else {
-  //   data = data.slice(1, data.length)
-  // }
-
-  // console.log('data in decodeFromUrlQueriesFormat 2');
-  // console.log(data);
-
-  return data
-    .slice(1, data.length)
+  return dataUpdated
+    // .slice(1, data.length)
     .split(';')
     .map(item => item.split('='))
     .reduce((acc: { [key: string]: string[] }, item: string[]) => {
@@ -33,7 +29,7 @@ const decodeFromUrlQueriesFormat = (data: string): TCheckerStateItem => {
 
 export default ({children}: React.PropsWithChildren<{}>) => {
   const {pathname} = useLocation()
-  console.log(pathname)
+
   const [checkedFilters, setCheckedFilters] = useState<TCheckerStateItem>(decodeFromUrlQueriesFormat(pathname))
   return (
     <ProductStateContext.Provider value={checkedFilters}>
