@@ -14,8 +14,9 @@ const Shop = () => {
       <Container>
         <Row className="pt-2">
           <Breadcrumb className="ms-2" title='Catalog'>
-            <Breadcrumb.Item onClick={() => navigate('/')}>
+            <Breadcrumb.Item onClick={() => navigate('/')} style={{filter: "brightness(0.5)"}}>
               <i className="bi bi-house-fill"/>
+              <span className="ms-1">Home</span>
             </Breadcrumb.Item>
             {filteredCrumbs.map((item, i, arr) => {
                 let crumbs = item
@@ -27,6 +28,7 @@ const Shop = () => {
                       navigate(crumbs)
                     }}
                     active={i === arr.length - 1}
+                    style={{filter: "brightness(0.5)"}}
                     className="text-capitalize"
                     key={item + i}
                   >
