@@ -49,7 +49,7 @@ export const publicRoutes: TRoutes[] = [
     Component: CatalogWrapper
   },
   {
-    path: SEARCH_ROUTE,
+    path: `${SEARCH_ROUTE}/:search`,
     Component: Search
   },
   {

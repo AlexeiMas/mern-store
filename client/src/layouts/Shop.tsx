@@ -15,7 +15,7 @@ const Shop = () => {
         <Row className="pt-2">
           <Breadcrumb className="ms-2" title='Catalog'>
             <Breadcrumb.Item onClick={() => navigate('/')}>
-              <i className="bi bi-house-door"/>
+              <i className="bi bi-house-fill"/>
             </Breadcrumb.Item>
             {filteredCrumbs.map((item, i, arr) => {
                 let crumbs = item

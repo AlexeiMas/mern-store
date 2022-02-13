@@ -21,12 +21,14 @@ const CartItem = () => {
           <Col>
             <Form.Control
               min={1}
-              type="number"
+              max={100}
+              type="text"
+              inputMode="numeric"
               defaultValue={1}
               id="quantity"
               name="product"
               aria-describedby="Quantity of product"
-              style={{width: '4.5rem'}}
+              style={{width: '4rem'}}
             />
           </Col>
           <Col className="d-flex justify-content-end">

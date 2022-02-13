@@ -1,47 +1,34 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Accordion, Form, Spinner} from "react-bootstrap";
 import {TServerData} from "../types/serverData";
+import {useLocation, useNavigate} from "react-router-dom";
 import {fetchTagTypes} from "../http/tagTypeAPI";
 import {fetchTags} from '../http/tagAPI';
-import {useLocation, useNavigate} from "react-router-dom";
-import {ProductDispatchContext, ProductStateContext} from "../context/ProductContext"
-import {fetchProducts} from "../http/productAPI";
-import {PRODUCTS_ROUTE} from "../utils/consts";
+import {encodeToUrlQueriesFormat} from "../utils/helperFunctions"
+import {TShopFiltration} from "../types/checkerFiltration"
 
-export type TCheckerStateItem = { [key: string]: Array<string> }
-
-const encodeToUrlQueriesFormat = (data: TCheckerStateItem): string => {
-  return Object
-    .entries(data)
-    .map(item => item.join('='))
-    .filter(item2 => item2[item2.length - 1] !== '=')
-    .join(';')
-}
-
-const TagTypeBar = () => {
+const TagTypeBar: FC<Omit<TShopFiltration, "setProductsCount">> = ({checkedFilters, setCheckedFilters, fetchDataCB, routeSlug, routeConst}) => {
   const navigate = useNavigate()
   const {pathname} = useLocation()
   const [tagTypes, setTagTypes] = useState<TServerData>()
   const [tags, setTags] = useState<TServerData>()
   const [products, setProducts] = useState<TServerData>()
-  const checkedFilters = useContext(ProductStateContext)
-  const setCheckedFilters = useContext(ProductDispatchContext)
 
   useEffect(() => {
     let pathnameFilter = '';
 
-    if (pathname.includes('catalog')) {
-      pathnameFilter = pathname.split('catalog')[1]
+    if (pathname.includes(routeSlug)) {
+      pathnameFilter = pathname.split(routeSlug)[1]
     }
 
     fetchTagTypes('pagination=false').then(data => setTagTypes(data))
     fetchTags('pagination=false').then(data => setTags(data))
 
-    fetchProducts(`${pathnameFilter}${pathname === PRODUCTS_ROUTE ? '/pagination=false' : ';pagination=false'}`).then(data => setProducts(data))
+    fetchDataCB(`${pathnameFilter}${pathname === String(routeConst) ? '/pagination=false' : ';pagination=false'}`).then(data => setProducts(data))
   }, [pathname])
 
   useEffect(() => {
-    encodeToUrlQueriesFormat(checkedFilters) !== '' ? navigate(PRODUCTS_ROUTE + '/' + encodeToUrlQueriesFormat(checkedFilters)) : navigate(PRODUCTS_ROUTE)
+    encodeToUrlQueriesFormat(checkedFilters) !== '' ? navigate(routeConst + '/' + encodeToUrlQueriesFormat(checkedFilters)) : navigate(routeConst)
   }, [checkedFilters])
 
   const tagIds = products && products.docs.map(item => item.tagsIds).flat(Infinity)

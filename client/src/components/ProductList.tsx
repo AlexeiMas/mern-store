@@ -1,19 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Pagination, Row, Spinner} from "react-bootstrap";
-import ProductItem from "./ProductItem";
-import {fetchProducts} from "../http/productAPI";
-import {TServerData} from "../types/serverData";
 import {useLocation} from "react-router-dom"
-import {ProductDispatchContext, ProductStateContext} from "../context/ProductContext"
-import {PRODUCTS_ROUTE} from "../utils/consts";
+import ProductItem from "./ProductItem";
+import {TServerData} from "../types/serverData";
+import {TShopFiltration} from "../types/checkerFiltration"
 
-const ProductList = () => {
+const ProductList: FC<TShopFiltration> = ({checkedFilters, setCheckedFilters, fetchDataCB, routeSlug, routeConst, setProductsCount}) => {
   const {pathname} = useLocation()
   const [products, setProducts] = useState<TServerData>()
   const [pagination, setPagination] = useState<React.ReactElement[]>([])
-  // const [checkedFilters, setCheckedFilters] = useState(useContext(ProductStateContext))
-  const checkedFilters = useContext(ProductStateContext)
-  const setCheckedFilters = useContext(ProductDispatchContext)
 
   const paginationCreator = () => {
     if (products) {
@@ -45,18 +40,19 @@ const ProductList = () => {
   useEffect(() => {
     let pathnameFilter = '';
 
-    if (pathname.includes('catalog')) {
-      pathnameFilter = pathname.split('catalog')[1]
+    if (pathname.includes(routeSlug)) {
+      pathnameFilter = pathname.split(routeSlug)[1]
     }
 
-    fetchProducts(pathnameFilter).then(data => setProducts(data))
-    if (pathname === PRODUCTS_ROUTE) {
+    fetchDataCB(pathnameFilter).then(data => setProducts(data))
+    if (pathname === String(routeConst)) {
       setCheckedFilters({})
     }
   }, [pathname])
 
   useEffect(() => {
     paginationCreator()
+    products && setProductsCount(products.docs.length)
   }, [products])
 
   useEffect(() => {

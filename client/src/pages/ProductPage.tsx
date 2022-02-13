@@ -50,17 +50,22 @@ const ProductPage = () => {
               <Row>
                 <Col md={3}>
                   <ButtonGroup aria-label="quantity">
-                    <Button className="fw-bold" variant="outline-primary" disabled={quantity <= 1}
+                    <Button className="fw-bold" variant="outline-secondary" disabled={quantity <= 1}
                             onClick={() => setQuantity(quantity - 1)}>-</Button>
                     <Form.Control
                       value={quantity}
-                      onChange={(e) => setQuantity(Number(e.target.value))}
+                      onChange={(e) => {
+                        setQuantity(Number(e.target.value))
+                      }}
                       min={1}
-                      type="number"
+                      max={100}
+                      type="text"
+                      inputMode="numeric"
                       id="quantity"
                       aria-describedby="quantity"
+                      style={{width: "4rem"}}
                     />
-                    <Button className="fw-bold" variant="outline-primary"
+                    <Button className="fw-bold" variant="outline-secondary"
                             onClick={() => setQuantity(quantity + 1)}>+</Button>
                   </ButtonGroup>
                 </Col>
