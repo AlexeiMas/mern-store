@@ -1,7 +1,15 @@
-import React from 'react';
+import React, {FC, SetStateAction} from 'react';
 import {Button, Col, Container, Form, Image, ListGroup, Row} from "react-bootstrap";
 
-const CartItem = () => {
+export type TCartItem = {
+  image: string,
+  title: string,
+  quantity: number,
+  setQuantity: React.Dispatch<SetStateAction<number>>,
+  price: number
+}
+
+const CartItem: FC<TCartItem> = ({image, title, quantity, setQuantity, price}) => {
   return (
     <ListGroup.Item as="li" className="d-flex justify-content-between align-items-center">
       <Container>
@@ -11,12 +19,12 @@ const CartItem = () => {
               width={40}
               height={40}
               thumbnail
-              src={'https://content.rozetka.com.ua/goods/images/big/37399220.jpg'}
+              src={process.env.REACT_APP_API_URL! + image + '.jpg'}
               style={{objectFit: "cover"}}
             />
           </Col>
           <Col md={6}>
-            <div className="fw-bold">Subheading</div>
+            <div className="fw-bold">{title}</div>
           </Col>
           <Col>
             <Form.Control
@@ -24,7 +32,7 @@ const CartItem = () => {
               max={100}
               type="text"
               inputMode="numeric"
-              defaultValue={1}
+              defaultValue={quantity}
               id="quantity"
               name="product"
               aria-describedby="Quantity of product"
@@ -32,7 +40,7 @@ const CartItem = () => {
             />
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5 className="mb-0">555 $</h5>
+            <h5 className="mb-0">{price} $</h5>
           </Col>
           <Col className="d-flex justify-content-end">
             <Button variant="outline-primary" size={"sm"}>

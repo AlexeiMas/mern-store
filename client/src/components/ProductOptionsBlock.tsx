@@ -7,11 +7,11 @@ const ProductOptionsBlock: FC<TFiltersProduct> = ({checkedFilters, setCheckedFil
   const [limit, setLimit] = useState<string>('5')
 
   useEffect(() => {
-    setCheckedFilters({...checkedFilters, limit: [limit]})
+    setCheckedFilters({...checkedFilters, limit: [limit], page: []})
   }, [limit])
 
   useEffect(() => {
-    setCheckedFilters({...checkedFilters, sort: [sort]})
+    setCheckedFilters({...checkedFilters, sort: [sort], page: []})
   }, [sort])
 
   return (

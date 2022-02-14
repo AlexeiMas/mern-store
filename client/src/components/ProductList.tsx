@@ -14,6 +14,7 @@ const ProductList: FC<TShopFiltration> = ({checkedFilters, setCheckedFilters, fe
     if (products) {
       let active = products.page
       const items = []
+
       for (let number = 1; number <= products.totalPages; number++) {
         items.push(
           <Pagination.Item

@@ -1,8 +1,11 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Button, Card, Col, Container, ListGroup, Modal, Row} from "react-bootstrap";
 import {CHECKOUT_ROUTE} from "../utils/consts";
 import {useNavigate} from "react-router-dom";
 import CartItem from "./CartItem";
+import {fetchProducts} from "../http/productAPI";
+import {getStorageItem} from "../utils/storageFunctions";
+import {TServerData} from "../types/serverData";
 
 export type TCartControl = {
   show: boolean,
@@ -11,6 +14,24 @@ export type TCartControl = {
 
 const CartModal: FC<TCartControl> = ({show, onHide}) => {
   const navigate = useNavigate()
+  const [cart, setCart] = useState(getStorageItem('cart'))
+  const [products, setProducts] = useState<TServerData>()
+  const [quantity, setQuantity] = useState(1)
+
+  useEffect(() => {
+    setCart(getStorageItem('cart'))
+
+  }, [])
+
+  useEffect(() => {
+    let productIds;
+    if (cart) {
+      productIds = cart.map(item => item.id).join(',')
+    }
+    fetchProducts(`/_id=${productIds}`).then(data => setProducts(data))
+  }, [cart])
+
+  console.log(products)
 
   return (
     <Modal
@@ -25,9 +46,9 @@ const CartModal: FC<TCartControl> = ({show, onHide}) => {
       </Modal.Header>
       <Modal.Body>
         <ListGroup as="ol" numbered>
-          <CartItem/>
-          <CartItem/>
-          <CartItem/>
+          {products && products.docs.map(item =>
+            <CartItem key={item._id} title={String(item.title)} image={String(item.image)} price={Number(item.price)} quantity={quantity} setQuantity={setQuantity} />
+          )}
         </ListGroup>
       </Modal.Body>
       <Modal.Footer>

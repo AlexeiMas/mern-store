@@ -8,28 +8,25 @@ import ProductOptionsBlock from "../components/ProductOptionsBlock"
 import {fetchProducts} from "../http/productAPI"
 
 const Catalog: FC<TFiltersProduct> = ({checkedFilters, setCheckedFilters}) => {
-  const [productsCount, setProductsCount] = useState<number>( 0 )
+  const [productsCount, setProductsCount] = useState<number>(0)
 
   return (
     <Row>
       <Col md={3}>
-        {
-          productsCount !== 0 &&
-          <TagTypeBar
-            checkedFilters={checkedFilters}
-            setCheckedFilters={setCheckedFilters}
-            fetchDataCB={fetchProducts}
-            routeSlug={'catalog'}
-            routeConst={RoutesConst.PRODUCTS_ROUTE}
-          />
-        }
+        <TagTypeBar
+          checkedFilters={checkedFilters}
+          setCheckedFilters={setCheckedFilters}
+          fetchDataCB={fetchProducts}
+          routeSlug={'catalog'}
+          routeConst={RoutesConst.PRODUCTS_ROUTE}
+        />
       </Col>
       <Col md={9}>
         {
           productsCount !== 0 &&
           <ProductOptionsBlock
-            checkedFilters={checkedFilters}
-            setCheckedFilters={setCheckedFilters}
+              checkedFilters={checkedFilters}
+              setCheckedFilters={setCheckedFilters}
           />
         }
         <ProductList

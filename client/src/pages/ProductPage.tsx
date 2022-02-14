@@ -3,11 +3,15 @@ import {useLocation} from "react-router-dom"
 import {fetchProductData} from "../http/productAPI"
 import {TDocs} from "../types/serverData"
 import {Button, ButtonGroup, Card, Col, Container, Form, Image, Row} from "react-bootstrap"
+import {getStorageItem, setItemCart} from "../utils/storageFunctions";
+import CartModal from "../components/CartModal";
 
 const ProductPage = () => {
   const {pathname} = useLocation()
   const slug = pathname.slice(pathname.lastIndexOf('/') + 1)
   const [product, setProduct] = useState<TDocs>()
+  const [inCart, setInCart] = useState<boolean>(false)
+  const [cartShow, setCartShow] = useState<boolean>(false)
   const [quantity, setQuantity] = useState<number>(1)
 
   useEffect(() => {
@@ -15,20 +19,25 @@ const ProductPage = () => {
     fetchProductData(slug).then(data => setProduct(data))
   }, [])
 
+  useEffect(() => {
+    const candidate = getStorageItem('cart')
+    if (product && candidate) {
+      setInCart(candidate.some(item => item.id === product._id))
+    }
+  }, [product])
+
   const addToCart = () => {
-    console.log("Slug product:", slug)
-    // const cart = localStorage.getItem('cart')
-    // if (cart) {
-    //   const product = JSON.parse(cart)
-    //   localStorage.setItem('cart', JSON.stringify({...product, [slug]: product[slug] + quantity}))
-    // }
-    // localStorage.setItem('cart', JSON.stringify([]))
-    //
-    // localStorage.setItem('cart', JSON.stringify({[slug]: quantity}))
-    // localStorage.setItem('cartCounter', '0')
-    // localStorage.getItem('cart')
-    // }
+    (product && quantity) &&
+    setItemCart(product._id, quantity)
+    setInCart(true)
   }
+
+  const modalCart = (
+    <CartModal
+      show={cartShow}
+      onHide={() => setCartShow(false)}
+    />
+  )
 
   return (
     <Container>
@@ -74,13 +83,21 @@ const ProductPage = () => {
             <Card.Footer style={{backgroundColor: "white"}}>
               <Row>
                 <Col className="d-flex justify-content-evenly align-items-center">
-                  <Card.Title className="fs-1 mb-0">{product.price} $</Card.Title>
+                  <Card.Title className="fs-1 mb-0">{Number(product.price) * quantity} $</Card.Title>
                 </Col>
                 <Col className="text-center">
-                  <Button variant="success" size="lg" onClick={() => addToCart()}>
-                    <i className="bi bi-cart4"/>
-                    <span className="ms-1">Add to cart</span>
-                  </Button>
+                  {
+                    inCart ?
+                      <Button variant="outline-success" size="lg" onClick={() => setCartShow(true)}>
+                        <i className="bi bi-cart4"/>
+                        <span className="ms-1">In cart</span>
+                      </Button>
+                      :
+                      <Button variant="success" size="lg" onClick={() => addToCart()}>
+                        <i className="bi bi-cart4"/>
+                        <span className="ms-1">Add to cart</span>
+                      </Button>
+                  }
                 </Col>
               </Row>
             </Card.Footer>
@@ -88,6 +105,7 @@ const ProductPage = () => {
         </Col>
       </Row>
       }
+      {modalCart}
     </Container>
   );
 };
