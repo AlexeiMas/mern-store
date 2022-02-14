@@ -2,6 +2,7 @@ import React from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 import NavBar from "../components/NavBar";
 import {Breadcrumb, Container, Row} from "react-bootstrap";
+import styles from './style.module.css'
 
 const Shop = () => {
   const {pathname} = useLocation()
@@ -14,7 +15,7 @@ const Shop = () => {
       <Container>
         <Row className="pt-2">
           <Breadcrumb className="ms-2" title='Catalog'>
-            <Breadcrumb.Item onClick={() => navigate('/')} style={{filter: "brightness(0.5)"}}>
+            <Breadcrumb.Item onClick={() => navigate('/')} style={{filter: "brightness(0.5)"}} className={styles.textDecoration}>
               <i className="bi bi-house-fill"/>
               <span className="ms-1">Home</span>
             </Breadcrumb.Item>
@@ -29,7 +30,7 @@ const Shop = () => {
                     }}
                     active={i === arr.length - 1}
                     style={{filter: "brightness(0.5)"}}
-                    className="text-capitalize"
+                    className={styles.textDecoration}
                     key={item + i}
                   >
                     {crumbs.replaceAll('_', ' ')}

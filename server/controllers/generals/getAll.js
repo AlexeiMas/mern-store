@@ -27,7 +27,7 @@ module.exports = async function getAll(req, res, modelName) {
   if (modelName === Product) {
     const filteredValues = Object.values(filteredData).flat(Infinity)
 
-    if (Object.keys(filteredData).length) {
+    if (Object.keys(filteredData).length && !filtersKeys.includes("_id")) {
       const result = await Tag.find({slug: {$in: filteredValues}})
       filteredData["tagsIds"] = {$all: result.map(item => item._id)}
     }

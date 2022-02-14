@@ -1,0 +1,7 @@
+.textDecoration {
+    text-transform: capitalize;
+}
+
+.textDecoration a {
+    text-decoration: none;
+}

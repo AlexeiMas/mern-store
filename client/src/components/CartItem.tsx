@@ -19,7 +19,7 @@ const CartItem: FC<TCartItem> = ({image, title, quantity, setQuantity, price}) =
               width={40}
               height={40}
               thumbnail
-              src={process.env.REACT_APP_API_URL! + image + '.jpg'}
+              src={process.env.REACT_APP_API_URL! + image}
               style={{objectFit: "cover"}}
             />
           </Col>
