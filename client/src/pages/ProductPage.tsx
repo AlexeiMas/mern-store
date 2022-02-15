@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {useLocation} from "react-router-dom"
 import {fetchProductData} from "../http/productAPI"
 import {TDocs} from "../types/serverData"
 import {Button, ButtonGroup, Card, Col, Container, Form, Image, Row} from "react-bootstrap"
+import {CartStateContext, CartDispatchContext} from '../context/CartContext'
 import {getStorageItem, setItemCart} from "../utils/storageFunctions";
 import CartModal from "../components/CartModal";
 
@@ -12,24 +13,24 @@ const ProductPage = () => {
   const [product, setProduct] = useState<TDocs>()
   const [inCart, setInCart] = useState<boolean>(false)
   const [cartShow, setCartShow] = useState<boolean>(false)
-  const [quantity, setQuantity] = useState<number>(1)
+  const cart = useContext(CartStateContext)
+  const dispatch = useContext(CartDispatchContext)
 
   useEffect(() => {
-    console.log(pathname);
     fetchProductData(slug).then(data => setProduct(data))
   }, [])
 
-  useEffect(() => {
-    const candidate = getStorageItem('cart')
-    if (product && candidate) {
-      setInCart(candidate.some(item => item.id === product._id))
+  useMemo(() => {
+    if (product && cart) {
+      setInCart(cart.some(item => item.id === product._id))
     }
-  }, [product])
+  }, [product, cart])
 
   const addToCart = () => {
-    (product && quantity) &&
-    setItemCart(product._id, quantity)
+    (product) &&
+    setItemCart(product._id, 1)
     setInCart(true)
+    dispatch(getStorageItem('cart')!)
   }
 
   const modalCart = (
@@ -56,34 +57,11 @@ const ProductPage = () => {
               <Card.Text>
                 {product.description}
               </Card.Text>
-              <Row>
-                <Col md={3}>
-                  <ButtonGroup aria-label="quantity">
-                    <Button className="fw-bold" variant="outline-secondary" disabled={quantity <= 1}
-                            onClick={() => setQuantity(quantity - 1)}>-</Button>
-                    <Form.Control
-                      value={quantity}
-                      onChange={(e) => {
-                        setQuantity(Number(e.target.value))
-                      }}
-                      min={1}
-                      max={100}
-                      type="text"
-                      inputMode="numeric"
-                      id="quantity"
-                      aria-describedby="quantity"
-                      style={{width: "4rem"}}
-                    />
-                    <Button className="fw-bold" variant="outline-secondary"
-                            onClick={() => setQuantity(quantity + 1)}>+</Button>
-                  </ButtonGroup>
-                </Col>
-              </Row>
             </Card.Body>
             <Card.Footer style={{backgroundColor: "white"}}>
               <Row>
                 <Col className="d-flex justify-content-evenly align-items-center">
-                  <Card.Title className="fs-1 mb-0">{Number(product.price) * quantity} $</Card.Title>
+                  <Card.Title className="fs-1 mb-0">{Number(product.price)} $</Card.Title>
                 </Col>
                 <Col className="text-center">
                   {

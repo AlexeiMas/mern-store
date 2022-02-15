@@ -3,7 +3,12 @@ export type TCartItem = { id: string, quantity: number }
 export const getStorageItem = (itemKey: string): TCartItem[] | undefined => {
   const item = localStorage.getItem(itemKey)
   if (item) {
-    return JSON.parse(item)
+    const cart = JSON.parse(item)
+    if (cart.length === 0) {
+      removeItemCart(itemKey)
+    } else {
+      return cart
+    }
   }
   return undefined
 }
@@ -15,10 +20,12 @@ export const setItemCart = (id: TCartItem['id'], quantity: TCartItem['quantity']
   }
   let current = JSON.parse(cartStore)
   const findById = current.find((item: TCartItem) => item.id === id)
+
   if (findById) {
-    current = current.map((item: TCartItem) =>
-      (item.id === id) ? {...item, quantity: item.quantity + quantity} : item
-    )
+    quantity === 0 ?
+      (current = current.filter((item: TCartItem) => (item.id !== id)))
+      :
+      (current = current.map((item: TCartItem) => (item.id === id) ? {...item, quantity} : item))
   } else {
     current.push({id, quantity})
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 import NavBar from "../components/NavBar";
+import CartContext from "../context/CartContext";
 import {Breadcrumb, Container, Row} from "react-bootstrap";
 import styles from './style.module.css'
 
@@ -10,7 +11,7 @@ const Shop = () => {
   const filteredCrumbs = pathname.split('/').filter(item => item !== '' && !item.includes('='))
 
   return (
-    <>
+    <CartContext>
       <NavBar/>
       <Container>
         <Row className="pt-2">
@@ -42,7 +43,7 @@ const Shop = () => {
           <Outlet/>
         </Row>
       </Container>
-    </>
+    </CartContext>
   );
 };
 

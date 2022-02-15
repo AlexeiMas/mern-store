@@ -1,15 +1,20 @@
-import React, {FC, SetStateAction} from 'react';
-import {Button, Col, Container, Form, Image, ListGroup, Row} from "react-bootstrap";
+import React, {FC, SetStateAction, useContext} from 'react';
+import {Button, ButtonGroup, Col, Container, Form, Image, ListGroup, Row} from "react-bootstrap";
+import {CartDispatchContext, CartStateContext} from "../context/CartContext";
+import {getStorageItem, setItemCart} from "../utils/storageFunctions";
 
 export type TCartItem = {
+  id: string
   image: string,
   title: string,
   quantity: number,
-  setQuantity: React.Dispatch<SetStateAction<number>>,
   price: number
 }
 
-const CartItem: FC<TCartItem> = ({image, title, quantity, setQuantity, price}) => {
+const CartItem: FC<TCartItem> = ({id, image, title, quantity, price}) => {
+  const cart = useContext(CartStateContext)
+  const dispatch = useContext(CartDispatchContext)
+
   return (
     <ListGroup.Item as="li" className="d-flex justify-content-between align-items-center">
       <Container>
@@ -27,23 +32,39 @@ const CartItem: FC<TCartItem> = ({image, title, quantity, setQuantity, price}) =
             <div className="fw-bold">{title}</div>
           </Col>
           <Col>
-            <Form.Control
-              min={1}
-              max={100}
-              type="text"
-              inputMode="numeric"
-              defaultValue={quantity}
-              id="quantity"
-              name="product"
-              aria-describedby="Quantity of product"
-              style={{width: '4rem'}}
-            />
+            <ButtonGroup aria-label="quantity">
+              <Button className="fw-bold" variant="outline-secondary" disabled={quantity <= 1}
+                      onClick={() => {
+                        setItemCart(id, quantity - 1)
+                        dispatch(getStorageItem('cart')!)
+                      }}>-</Button>
+              <Form.Control
+                value={quantity}
+                readOnly
+                min={1}
+                max={100}
+                type="text"
+                inputMode="numeric"
+                id="quantity"
+                aria-describedby="quantity"
+                style={{width: "4rem"}}
+              />
+              <Button className="fw-bold" variant="outline-secondary"
+                      onClick={() => {
+                        setItemCart(id, quantity + 1)
+                        dispatch(getStorageItem('cart')!)
+                      }}>+</Button>
+            </ButtonGroup>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5 className="mb-0">{price} $</h5>
+            <h5 className="mb-0">{price * quantity} $</h5>
           </Col>
           <Col className="d-flex justify-content-end">
-            <Button variant="outline-primary" size={"sm"}>
+            <Button variant="outline-primary" size={"sm"} onClick={() => {
+              setItemCart(id, 0)
+              //TODO fix problem of update products
+              dispatch(cart.filter(item => item.id !== id))
+            }}>
               <i className="bi bi-trash"/>
             </Button>
           </Col>
