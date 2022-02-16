@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Button, Card, Col, Container, Row, Spinner} from "react-bootstrap"
+import {Card, Col, Container, Row, Spinner} from "react-bootstrap"
 import {TServerData} from "../types/serverData"
 import {useNavigate} from "react-router-dom"
 import ProductCartButton from "./ProductCartButton";
@@ -30,9 +30,6 @@ const GoodsBlock: FC<TGoodsBlock> = ({title, data, linkLabel}) => {
                   <Card.Footer className="bg-white d-flex align-items-center"
                                onClick={(e: React.MouseEvent) => e.stopPropagation()}>
                     <Card.Title className="mb-0">{product.price} $</Card.Title>
-                    {/*<Button variant="outline-success" className="ms-auto">*/}
-                    {/*  <i className="bi bi-cart4"/>*/}
-                    {/*</Button>*/}
                     <div className="ms-auto">
                       <ProductCartButton product={product}/>
                     </div>

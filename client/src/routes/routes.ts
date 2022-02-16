@@ -1,6 +1,6 @@
 import {
   ADMIN_DASHBOARD,
-  CANCEL_ORDER,
+  CANCEL_ORDER, CART_ROUTE,
   CHECKOUT_ROUTE,
   CRUD_USERS,
   HOME_ROUTE,
@@ -18,6 +18,7 @@ import Cancel from "../pages/Cancel";
 import AdminDashboard from "../pages/AdminDashboard"
 import Search from "../pages/Search";
 import Home from "../pages/Home";
+import Cart from "../pages/Cart";
 
 export type TRoutes = {
   path: string,
@@ -51,6 +52,10 @@ export const publicRoutes: TRoutes[] = [
   {
     path: `${SEARCH_ROUTE}/:search`,
     Component: Search
+  },
+  {
+    path: CART_ROUTE,
+    Component: Cart
   },
   {
     path: CHECKOUT_ROUTE,

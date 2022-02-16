@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {CANCEL_ORDER, CHECKOUT_ROUTE, SUCCESS_ORDER} from "../utils/consts";
+import {CANCEL_ORDER, CART_ROUTE, CHECKOUT_ROUTE, SUCCESS_ORDER} from "../utils/consts";
 import {Badge, Button} from "react-bootstrap";
 import {CartStateContext} from "../context/CartContext";
 import {useLocation} from "react-router-dom";
@@ -22,7 +22,7 @@ const NavBarCartBtn = () => {
       <Button
         variant="outline-secondary"
         className="d-flex align-items-center position-relative"
-        disabled={[CHECKOUT_ROUTE, SUCCESS_ORDER, CANCEL_ORDER].includes(pathname)}
+        disabled={[CHECKOUT_ROUTE, SUCCESS_ORDER, CANCEL_ORDER, CART_ROUTE].includes(pathname)}
         onClick={() => setCartShow(true)}
       >
         <i className="bi bi-cart4"/>

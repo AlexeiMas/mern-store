@@ -1,8 +1,9 @@
 export const ADMIN_ROUTE = '/admin'
-export const LOGIN_ROUTE = '/admin/login'
+export const LOGIN_ROUTE = `${ADMIN_ROUTE}/login`
 export const HOME_ROUTE = '/'
 export const PRODUCTS_ROUTE = '/catalog'
-export const CHECKOUT_ROUTE = '/checkout'
+export const CART_ROUTE = '/cart'
+export const CHECKOUT_ROUTE = `${CART_ROUTE}/checkout`
 export const PRODUCT_ROUTE = '/product/:slug'
 export const SEARCH_ROUTE = '/search'
 
@@ -25,6 +26,7 @@ export enum RoutesConst {
   CHECKOUT_ROUTE = CHECKOUT_ROUTE.valueOf(),
   PRODUCT_ROUTE = PRODUCT_ROUTE.valueOf(),
   SEARCH_ROUTE = SEARCH_ROUTE.valueOf(),
+  CART_ROUTE = CART_ROUTE.valueOf(),
   ADMIN_DASHBOARD = ADMIN_DASHBOARD.valueOf(),
   CRUD_USERS = CRUD_USERS.valueOf(),
   CRUD_TAGS = CRUD_TAGS.valueOf(),
