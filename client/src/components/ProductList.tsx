@@ -1,11 +1,19 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Pagination, Row, Spinner} from "react-bootstrap";
 import {useLocation} from "react-router-dom"
-import ProductItem from "./ProductItem";
+import ProductItem, {TProductItems} from "./ProductItem";
 import {TServerData} from "../types/serverData";
 import {TShopFiltration} from "../types/checkerFiltration"
 
-const ProductList: FC<TShopFiltration> = ({checkedFilters, setCheckedFilters, fetchDataCB, routeSlug, routeConst, setProductsCount}) => {
+const ProductList: FC<TShopFiltration> = (
+  {
+    checkedFilters,
+    setCheckedFilters,
+    fetchDataCB,
+    routeSlug,
+    routeConst,
+    setProductsCount
+  }) => {
   const {pathname} = useLocation()
   const [products, setProducts] = useState<TServerData>()
   const [pagination, setPagination] = useState<React.ReactElement[]>([])
@@ -68,14 +76,10 @@ const ProductList: FC<TShopFiltration> = ({checkedFilters, setCheckedFilters, fe
         ?
         <>
           {
-            products.docs.map(({_id, title, image, description, price, slug}) =>
+            products.docs.map((product) =>
               <ProductItem
-                key={_id}
-                slug={slug as string}
-                title={title as string}
-                image={image as string}
-                description={description as string}
-                price={price as number}
+                key={product._id}
+                product={product as TProductItems}
               />
             )
           }

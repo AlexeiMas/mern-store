@@ -1,12 +1,12 @@
-import React, {FC, useContext, useEffect, useMemo, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import {Button, Card, Col, Container, ListGroup, Modal, Row} from "react-bootstrap";
 import {CHECKOUT_ROUTE} from "../utils/consts";
 import {useNavigate} from "react-router-dom";
 import CartItem from "./CartItem";
 import {fetchProducts} from "../http/productAPI";
-import {getStorageItem} from "../utils/storageFunctions";
-import {CartStateContext, CartDispatchContext} from '../context/CartContext'
-import {TServerData} from "../types/serverData";
+import {TCartItem} from "../utils/storageFunctions";
+import {CartStateContext} from '../context/CartContext'
+import {TDocs} from "../types/serverData";
 import CartDummy from "./CartDummy";
 
 export type TCartControl = {
@@ -16,23 +16,25 @@ export type TCartControl = {
 
 const CartModal: FC<TCartControl> = ({show, onHide}) => {
   const navigate = useNavigate()
-  const [products, setProducts] = useState<TServerData>()
+  const [products, setProducts] = useState<TDocs[]>()
   const cart = useContext(CartStateContext)
   const [totalPrice, setTotalPrice] = useState<number>(0)
 
-  useMemo(() => {
-    cart.length !== 0 && products && setTotalPrice(products.docs.reduce((acc, el) => {
-      return acc + (Number(el.price) * (cart.find(item => item.id === el._id)!.quantity))
-    }, 0))
-  }, [cart, products])
-
-  //TODO fix problem of update products
   useEffect(() => {
     let productIds;
     if (cart) {
       productIds = cart.map(item => item.id).join(',')
     }
-    fetchProducts(`/_id=${productIds}`).then(data => setProducts(data))
+
+    fetchProducts(`/pagination=false;_id=${productIds}`)
+      .then(data => {
+        const products = data.docs;
+        setProducts(products);
+
+        cart.length !== 0 && products && setTotalPrice(products.reduce((acc: number, el: TDocs) => {
+          return acc + (Number(el.price) * (cart.find(item => item.id === el._id)!.quantity))
+        }, 0))
+      })
   }, [cart])
 
   return (
@@ -48,20 +50,29 @@ const CartModal: FC<TCartControl> = ({show, onHide}) => {
       </Modal.Header>
       <Modal.Body>
         {
-          cart.length !== 0 ?
+          cart.length !== 0
+            ?
             <ListGroup as="ol" numbered>
-              {products && products.docs.map(item =>
-                <CartItem
-                  key={item._id}
-                  id={item._id}
-                  title={String(item.title)}
-                  image={String(item.image)}
-                  price={Number(item.price)}
-                  quantity={{...cart.find(el => item._id === el.id)}.quantity!}
-                />
-              )}
+              {cart && products && cart.reduce((nodes: React.ReactNode[], item: TCartItem) => {
+                const product = products.find(product => product._id === item.id);
+                if (!product) {
+                  return nodes;
+                }
+                nodes.push(
+                  <CartItem
+                    key={product._id}
+                    id={product._id}
+                    title={String(product.title)}
+                    image={String(product.image)}
+                    price={Number(product.price)}
+                    quantity={item.quantity}
+                  />
+                );
+                return nodes
+              }, [])}
             </ListGroup>
-            : <CartDummy/>
+            :
+            <CartDummy/>
         }
       </Modal.Body>
       <Modal.Footer>

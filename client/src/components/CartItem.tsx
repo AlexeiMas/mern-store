@@ -1,4 +1,4 @@
-import React, {FC, SetStateAction, useContext} from 'react';
+import React, {FC, useContext} from 'react';
 import {Button, ButtonGroup, Col, Container, Form, Image, ListGroup, Row} from "react-bootstrap";
 import {CartDispatchContext, CartStateContext} from "../context/CartContext";
 import {getStorageItem, setItemCart} from "../utils/storageFunctions";
@@ -33,11 +33,14 @@ const CartItem: FC<TCartItem> = ({id, image, title, quantity, price}) => {
           </Col>
           <Col>
             <ButtonGroup aria-label="quantity">
-              <Button className="fw-bold" variant="outline-secondary" disabled={quantity <= 1}
-                      onClick={() => {
-                        setItemCart(id, quantity - 1)
-                        dispatch(getStorageItem('cart')!)
-                      }}>-</Button>
+              <Button
+                className="fw-bold"
+                variant="outline-secondary"
+                disabled={quantity <= 1}
+                onClick={() => {
+                  setItemCart(id, quantity - 1)
+                  dispatch(getStorageItem('cart')!)
+                }}>-</Button>
               <Form.Control
                 value={quantity}
                 readOnly
@@ -62,7 +65,6 @@ const CartItem: FC<TCartItem> = ({id, image, title, quantity, price}) => {
           <Col className="d-flex justify-content-end">
             <Button variant="outline-primary" size={"sm"} onClick={() => {
               setItemCart(id, 0)
-              //TODO fix problem of update products
               dispatch(cart.filter(item => item.id !== id))
             }}>
               <i className="bi bi-trash"/>
