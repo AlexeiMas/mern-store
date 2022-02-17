@@ -2,20 +2,8 @@ import React, {FC} from 'react';
 import {Card, Col} from "react-bootstrap";
 import {useNavigate} from "react-router-dom"
 import ProductCartButton from "./ProductCartButton";
-
-export type TProductItems = {
-  createdDate: string,
-  description: string
-  image: string
-  orderCounter: number
-  price: number
-  slug: string
-  tagsIds: string[]
-  title: string
-  updatedDate: string
-  __v: number
-  _id: string
-}
+import {TProductItems} from "../types/serverData";
+import {textLengthSlicer} from "../utils/textLengthSlicer";
 
 export type TProductItemProps = {
   product: TProductItems
@@ -34,11 +22,10 @@ const ProductItem: FC<TProductItemProps> = ({product}) => {
           src={process.env.REACT_APP_API_URL! + product.image}
         />
         <Card.Body style={{cursor: "default"}}>
-          <Card.Subtitle style={{height: '2.5rem', overflow: 'hidden'}}>{product.title}</Card.Subtitle>
+          <Card.Subtitle style={{height: '2.5rem'}}>{textLengthSlicer(product.title, 35)}</Card.Subtitle>
           <Card.Text style={{height: '4.8rem', overflow: 'hidden'}}>
-            {product.description}
+            {textLengthSlicer(product.description, 55)}
           </Card.Text>
-          ...
         </Card.Body>
         <Card.Footer className="d-flex align-items-center justify-content-between" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
           <Card.Title className="mb-0">{product.price} $</Card.Title>

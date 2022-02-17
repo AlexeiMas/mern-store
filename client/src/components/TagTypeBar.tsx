@@ -1,17 +1,19 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Accordion, Form, Spinner} from "react-bootstrap";
-import {TServerData} from "../types/serverData";
+import {TDocs, TServerData} from "../types/serverData";
 import {useLocation, useNavigate} from "react-router-dom";
 import {fetchTagTypes} from "../http/tagTypeAPI";
 import {fetchTags} from '../http/tagAPI';
 import {encodeToUrlQueriesFormat} from "../utils/helperFunctions"
 import {TShopFiltration} from "../types/checkerFiltration"
 
-const TagTypeBar: FC<Omit<TShopFiltration, "setProductsCount">> = ({checkedFilters, setCheckedFilters, fetchDataCB, routeSlug, routeConst}) => {
+const TagTypeBar: FC<Omit<TShopFiltration, "setProductsCount">> = (
+  {checkedFilters, setCheckedFilters, fetchDataCB, routeSlug, routeConst}
+) => {
   const navigate = useNavigate()
   const {pathname} = useLocation()
-  const [tagTypes, setTagTypes] = useState<TServerData>()
-  const [tags, setTags] = useState<TServerData>()
+  const [tagTypes, setTagTypes] = useState<TServerData & { tagTypeId: string }>()
+  const [tags, setTags] = useState<Omit<TServerData, 'docs'> & { docs: TDocs[] }>()
   const [products, setProducts] = useState<TServerData>()
 
   useEffect(() => {
@@ -68,33 +70,33 @@ const TagTypeBar: FC<Omit<TShopFiltration, "setProductsCount">> = ({checkedFilte
             {tags
               ?
               tags.docs.map(tag => (tag.tagTypeId === tagType._id &&
-                <Form.Check
-                  type="checkbox"
-                  id={String(tag._id)}
-                  name={String(tag.slug)}
-                  label={tag.title}
-                  key={tag._id}
-                  checked={!!checkedFilters[String(tagType.slug)] && checkedFilters[String(tagType.slug)].includes(String(tag.slug))}
-                  onChange={(e) => {
-                    const key = String(tagType.slug)
-                    const value = String(tag.slug)
-                    e.target.checked
-                      ? (!checkedFilters[key] ? (Object.defineProperty(checkedFilters, key, {
-                        value: []
-                      }) && setCheckedFilters({
-                        ...checkedFilters,
-                        [key]: [...checkedFilters[key], value]
-                      })) : setCheckedFilters({
-                        ...checkedFilters,
-                        [key]: [...checkedFilters[key], value]
-                      }))
-                      :
-                      (setCheckedFilters({
-                        ...checkedFilters,
-                        [key]: checkedFilters[key].filter(item => item !== value)
-                      }))
-                  }}
-                />
+                  <Form.Check
+                      type="checkbox"
+                      id={String(tag._id)}
+                      name={String(tag.slug)}
+                      label={tag.title}
+                      key={tag._id}
+                      checked={!!checkedFilters[String(tagType.slug)] && checkedFilters[String(tagType.slug)].includes(String(tag.slug))}
+                      onChange={(e) => {
+                        const key = String(tagType.slug)
+                        const value = String(tag.slug)
+                        e.target.checked
+                          ? (!checkedFilters[key] ? (Object.defineProperty(checkedFilters, key, {
+                            value: []
+                          }) && setCheckedFilters({
+                            ...checkedFilters,
+                            [key]: [...checkedFilters[key], value]
+                          })) : setCheckedFilters({
+                            ...checkedFilters,
+                            [key]: [...checkedFilters[key], value]
+                          }))
+                          :
+                          (setCheckedFilters({
+                            ...checkedFilters,
+                            [key]: checkedFilters[key].filter(item => item !== value)
+                          }))
+                      }}
+                  />
               ))
               :
               <Spinner animation="border" role="status">

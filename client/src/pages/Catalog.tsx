@@ -10,6 +10,8 @@ import {fetchProducts} from "../http/productAPI"
 const Catalog: FC<TFiltersProduct> = ({checkedFilters, setCheckedFilters}) => {
   const [productsCount, setProductsCount] = useState<number>(0)
 
+  console.log(productsCount)
+
   return (
     <Row>
       <Col md={3}>
@@ -27,6 +29,7 @@ const Catalog: FC<TFiltersProduct> = ({checkedFilters, setCheckedFilters}) => {
           <ProductOptionsBlock
               checkedFilters={checkedFilters}
               setCheckedFilters={setCheckedFilters}
+              productsCount={productsCount}
           />
         }
         <ProductList

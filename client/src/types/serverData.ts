@@ -3,8 +3,22 @@ export type TDocs = {
   [key: string]: string | number | Array<string>
 }
 
+export type TProductItems = {
+  createdDate: string,
+  description: string
+  image: string
+  orderCounter: number
+  price: number
+  slug: string
+  tagsIds: string[]
+  title: string
+  updatedDate: string
+  __v: number
+  _id: string
+}
+
 export type TServerData = {
-  docs: TDocs[],
+  docs: TProductItems[],
   hasNextPage: boolean
   hasPrevPage: boolean
   limit: number

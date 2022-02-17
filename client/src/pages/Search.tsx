@@ -31,7 +31,11 @@ const Search = () => {
       <Col md={9}>
         {
           productsCount !== 0 &&
-          <ProductOptionsBlock checkedFilters={checkedFilters} setCheckedFilters={setCheckedFilters}/>
+          <ProductOptionsBlock
+              checkedFilters={checkedFilters}
+              setCheckedFilters={setCheckedFilters}
+              productsCount={productsCount}
+          />
         }
         <ProductList
           checkedFilters={checkedFilters}

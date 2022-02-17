@@ -2,16 +2,27 @@ import React, {FC, useEffect, useState} from 'react';
 import {Col, Form, Row} from "react-bootstrap"
 import {TFiltersProduct} from "../types/checkerFiltration"
 
-const ProductOptionsBlock: FC<TFiltersProduct> = ({checkedFilters, setCheckedFilters}) => {
+export type TProductOptionsBlock = TFiltersProduct & {productsCount: number}
+
+const ProductOptionsBlock: FC<TProductOptionsBlock> = ({checkedFilters, setCheckedFilters, productsCount}) => {
   const [sort, setSort] = useState<string>(checkedFilters.sort && checkedFilters.sort.join(','))
   const [limit, setLimit] = useState<string>('5')
 
   useEffect(() => {
-    setCheckedFilters({...checkedFilters, limit: [limit], page: []})
+    const filtersData = {...checkedFilters, limit: [limit]}
+    if (!productsCount) {
+      Object.defineProperty(filtersData, 'page', {value: []})
+    }
+    console.log(filtersData)
+    setCheckedFilters(filtersData)
   }, [limit])
 
   useEffect(() => {
-    setCheckedFilters({...checkedFilters, sort: [sort], page: []})
+    const filtersData = {...checkedFilters, sort: [sort]}
+    if (!productsCount) {
+      Object.defineProperty(filtersData, 'page', {value: []})
+    }
+    setCheckedFilters(filtersData)
   }, [sort])
 
   return (

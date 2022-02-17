@@ -6,6 +6,7 @@ const ApiError = require("../error/ApiError")
 
 class LoginController {
   async home(req, res) {
+    console.log('IN HOME');
     try {
       const admin = await Admin.find()
       if (admin.length === 0) {

@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {FC} from 'react';
+import {Image} from "react-bootstrap";
+import {TProductsInCart} from "../hooks/useCartProducts";
+import {textLengthSlicer} from "../utils/textLengthSlicer";
 
-const CheckOutItem = () => {
+const CheckOutItem: FC<TProductsInCart> = ({image, title, price, quantity}) => {
   return (
     <tr>
-      <td>1</td>
-      <td>Table cell</td>
-      <td>555 $</td>
-      <td>1</td>
-      <td>555 $</td>
+      <td>
+        <Image src={process.env.REACT_APP_API_URL! + image} width={40} height={40} thumbnail />
+      </td>
+      <td>{textLengthSlicer(title)}</td>
+      <td>{price} $</td>
+      <td>{quantity}</td>
+      <td>{price * quantity} $</td>
     </tr>
   );
 };

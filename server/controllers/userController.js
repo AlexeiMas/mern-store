@@ -17,7 +17,9 @@ class UserController {
       }
 
       const {name, email, password} = req.body
-      const candidate = await Admin.findOne({$or: [{name}, {email}]})
+
+      //TODO: use exists() instead findOne
+      const candidate = await Admin.exists({$or: [{name}, {email}]})
       if (candidate) {
         return next(ApiError.badRequest('User with such login and/or email is already exists'))
       }
@@ -52,6 +54,8 @@ class UserController {
 
       const {id} = req.params
       const {name, email, password} = req.body
+
+      //TODO: use exists() instead findOne
       const checkDuplicate = await Admin.find({
           $and: [
             {_id: {$ne: id}},

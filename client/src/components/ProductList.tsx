@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Pagination, Row, Spinner} from "react-bootstrap";
 import {useLocation} from "react-router-dom"
-import ProductItem, {TProductItems} from "./ProductItem";
+import ProductItem from "./ProductItem";
 import {TServerData} from "../types/serverData";
 import {TShopFiltration} from "../types/checkerFiltration"
 
@@ -79,7 +79,7 @@ const ProductList: FC<TShopFiltration> = (
             products.docs.map((product) =>
               <ProductItem
                 key={product._id}
-                product={product as TProductItems}
+                product={product}
               />
             )
           }

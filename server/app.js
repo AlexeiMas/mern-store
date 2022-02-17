@@ -21,9 +21,7 @@ app.use(fileUpload({}))
 app.use(express.urlencoded({extended: true}))
 // app.use(cookieParser())
 
-app.get('/', (req, res) => {
-  res.send('Server is running...')
-})
+//TODO: add "/v1"
 app.use('/api', routes)
 
 

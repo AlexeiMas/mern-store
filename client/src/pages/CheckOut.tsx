@@ -1,6 +1,5 @@
 import React from 'react';
-import {Card, Col, Container, Row, Table} from "react-bootstrap";
-import CheckOutItem from "../components/CheckOutItem";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import CheckOutForm from "../components/CheckOutForm";
 import CheckOutResume from "../components/CheckOutResume";
 
@@ -10,35 +9,20 @@ const CheckOut = () => {
       <Card
         bg={'light'}
         text={'dark'}
-        style={{width: '70%'}}
+        style={{width: '90%'}}
         className="mb-2"
       >
         <Card.Header className="fs-2">Checkout</Card.Header>
         <Card.Body>
-          <Card.Title> Fill data of your order </Card.Title>
           <Container>
+            <Row>
+              <Card.Title> Fill data of your order </Card.Title>
+            </Row>
             <Row>
               <Col>
                 <CheckOutForm/>
-                <Card.Text className="fs-4">Order:</Card.Text>
-                <Table responsive="sm">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total price</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <CheckOutItem/>
-                    <CheckOutItem/>
-                    <CheckOutItem/>
-                  </tbody>
-                </Table>
               </Col>
-              <Col md={4}>
+              <Col md={6}>
                 <CheckOutResume/>
               </Col>
             </Row>
