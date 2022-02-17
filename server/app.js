@@ -7,6 +7,8 @@ const fileUpload = require('express-fileupload')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const routes = require('./routes/apiRoutes');
 const path = require("path");
+const Admin = require("./models/Admin")
+const bcrypt = require("bcryptjs")
 
 const PORT = process.env.PORT || 5000
 
@@ -44,4 +46,14 @@ async function start() {
   }
 }
 
-start()
+start().then(async () => {
+  const admin = await Admin.exists({})
+  if (!admin) {
+    const encryptPassword = bcrypt.hashSync(process.env.DEFAULT_PASSWORD, 3)
+    await Admin.create({
+      name: process.env.DEFAULT_ADMIN,
+      email: process.env.DEFAULT_EMAIL,
+      password: encryptPassword
+    })
+  }
+})

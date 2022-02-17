@@ -60,7 +60,7 @@ const CartItem: FC<TCartItem> = ({id, image, title, quantity, price}) => {
             </ButtonGroup>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5 className="mb-0">{price * quantity} $</h5>
+            <h5 className="mb-0" style={{whiteSpace: "nowrap"}}>{price * quantity} $</h5>
           </Col>
           <Col className="d-flex justify-content-end">
             <Button variant="outline-primary" size={"sm"} onClick={() => {
