@@ -16,8 +16,9 @@ const CartModal: FC<TCartControl> = ({show, onHide}) => {
     <Modal
       show={show}
       onHide={onHide}
-      size="lg"
+      size="xl"
       aria-labelledby="contained-modal-title-vcenter"
+      fullscreen={"md-down"}
       centered
     >
       <Modal.Header closeButton>

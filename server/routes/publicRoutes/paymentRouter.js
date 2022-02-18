@@ -1,5 +1,5 @@
 const Router = require('express')
-const paymentController = require('../controllers/paymentController')
+const paymentController = require('../../controllers/paymentController')
 
 const router = Router()
 

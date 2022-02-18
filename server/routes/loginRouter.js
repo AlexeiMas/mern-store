@@ -1,17 +1,11 @@
 const Router = require('express')
-const {check} = require('express-validator')
+const checkEmail = require('../middleware/validation/checkEmail')
+const checkPassword = require('../middleware/validation/checkPassword')
+const validationResultMiddleware = require('../middleware/validationResultMiddleware')
 const login = require('../controllers/loginController')
 
 const router = Router()
 
-//TODO: create middleware for express-validator error handler
-router.post(
-  '/login',
-  [
-    check('email', 'Input Correct email').normalizeEmail().isEmail(),
-    check('password', 'Input password').exists()
-  ],
-  login
-)
+router.post('/', [checkEmail, checkPassword], validationResultMiddleware, login)
 
 module.exports = router

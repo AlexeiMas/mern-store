@@ -21,7 +21,7 @@ const CartSubmit: FC<TCartSubmit> = ({totalPrice, onHide}) => {
       {
         cart.length !== 0 && totalPrice !== 0
           ?
-          <Card border={'danger'} style={{backgroundColor: 'rgba(0,160,70,.1)'}}>
+          <Card border={'rgba(0,160,70,.1)'} style={{backgroundColor: 'rgba(0,160,70,.1)'}}>
             <Card.Body>
               <Container className="px-0">
                 <Row className="d-flex align-items-center">

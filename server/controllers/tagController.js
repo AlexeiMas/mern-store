@@ -9,7 +9,7 @@ class TagController {
     try {
       let {title, slug, tagTypeId} = req.body
       slug = helpers.spaceReplacer(slug)
-      const candidate = await Tag.findOne({title, slug, tagTypeId})
+      const candidate = await Tag.exists({title, slug, tagTypeId})
       if (candidate) {
         return next(ApiError.badRequest('Tag with such title is already exists'))
       }
@@ -24,14 +24,18 @@ class TagController {
     }
   }
 
-  async getAll(req, res) {
-    await getAll(req, res, Tag)
+  async getAll(req, res, next) {
+    await getAll(req, res, next, Tag)
   }
 
-  async getOne(req, res) {
-    const {id} = req.params
-    const tag = await Tag.findById(id)
-    res.json(tag)
+  async getOne(req, res, next) {
+    try {
+      const {id} = req.params
+      const tag = await Tag.findById(id)
+      res.json(tag)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
   }
 
   async update(req, res, next) {
@@ -39,7 +43,7 @@ class TagController {
       const {id} = req.params
       let {title, slug, tagTypeId} = req.body
       slug = helpers.spaceReplacer(slug)
-      await Tag.findOneAndUpdate({_id: id}, {
+      await Tag.findByIdAndUpdate({_id: id}, {
         title,
         tagTypeId,
         slug
@@ -53,7 +57,7 @@ class TagController {
   async remove(req, res, next) {
     try {
       const {id} = req.params
-      await Tag.findOneAndRemove({_id: id})
+      await Tag.findByIdAndRemove({_id: id})
       await Product.updateMany({}, {
         $pull: {
           tagsIds: {$in: [id]}

@@ -7,7 +7,7 @@ const CheckOutItem: FC<TProductsInCart> = ({image, title, price, quantity}) => {
   return (
     <tr>
       <td>
-        <Image src={process.env.REACT_APP_API_URL! + image} width={40} height={40} thumbnail />
+        <Image src={process.env.REACT_APP_API_IMG! + image} width={40} height={40} thumbnail />
       </td>
       <td>{textLengthSlicer(title)}</td>
       <td>{price} $</td>

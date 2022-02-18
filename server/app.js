@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
-const routes = require('./routes/apiRoutes');
+const routes = require('./routes');
 const path = require("path");
 const Admin = require("./models/Admin")
 const bcrypt = require("bcryptjs")
@@ -23,9 +23,7 @@ app.use(fileUpload({}))
 app.use(express.urlencoded({extended: true}))
 // app.use(cookieParser())
 
-//TODO: add "/v1"
-app.use('/api', routes)
-
+app.use('/api/v1', routes)
 
 //Last middleware - Error
 app.use(errorHandler)
@@ -49,7 +47,7 @@ async function start() {
 start().then(async () => {
   const admin = await Admin.exists({})
   if (!admin) {
-    const encryptPassword = bcrypt.hashSync(process.env.DEFAULT_PASSWORD, 3)
+    const encryptPassword = bcrypt.hashSync(process.env.DEFAULT_PASSWORD, 5)
     await Admin.create({
       name: process.env.DEFAULT_ADMIN,
       email: process.env.DEFAULT_EMAIL,

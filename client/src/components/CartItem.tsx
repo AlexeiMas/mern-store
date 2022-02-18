@@ -2,6 +2,7 @@ import React, {FC, useContext} from 'react';
 import {Button, ButtonGroup, Col, Container, Form, Image, ListGroup, Row} from "react-bootstrap";
 import {CartDispatchContext, CartStateContext} from "../context/CartContext";
 import {getStorageItem, setItemCart} from "../utils/storageFunctions";
+import {textLengthSlicer} from "../utils/textLengthSlicer";
 
 export type TCartItem = {
   id: string
@@ -24,12 +25,12 @@ const CartItem: FC<TCartItem> = ({id, image, title, quantity, price}) => {
               width={40}
               height={40}
               thumbnail
-              src={process.env.REACT_APP_API_URL! + image}
+              src={process.env.REACT_APP_API_IMG! + image}
               style={{objectFit: "cover"}}
             />
           </Col>
-          <Col md={6}>
-            <div className="fw-bold">{title}</div>
+          <Col md={5}>
+            <div className="fw-bold">{textLengthSlicer(title, 30)}</div>
           </Col>
           <Col>
             <ButtonGroup aria-label="quantity">
@@ -60,7 +61,7 @@ const CartItem: FC<TCartItem> = ({id, image, title, quantity, price}) => {
             </ButtonGroup>
           </Col>
           <Col className="d-flex justify-content-end">
-            <h5 className="mb-0" style={{whiteSpace: "nowrap"}}>{price * quantity} $</h5>
+            <h5 className="mb-0">{price * quantity} $</h5>
           </Col>
           <Col className="d-flex justify-content-end">
             <Button variant="outline-primary" size={"sm"} onClick={() => {

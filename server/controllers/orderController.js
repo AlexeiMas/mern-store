@@ -26,22 +26,26 @@ class OrderController {
         slug: slug
       })
       // await OrderSlug.findOneAndUpdate({}, {slug: slug + 1}, {new: true})
-      await OrderSlug.findOneAndUpdate({_id}, {slug: slug + 1}, {new: true})
+      await OrderSlug.findByIdAndUpdate({_id}, {slug: slug + 1}, {new: true})
       return res.json(order)
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }
   }
 
-  async getAll(req, res) {
+  async getAll(req, res, next) {
     // await OrderSlug.create({slug: 100000})
-    await getAll(req, res, Order)
+    await getAll(req, res, next, Order)
   }
 
-  async getOne(req, res) {
-    const {id} = req.params
-    const product = await Order.findById(id)
-    res.json(product)
+  async getOne(req, res, next) {
+    try {
+      const {id} = req.params
+      const product = await Order.findById(id)
+      res.json(product)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
   }
 
   async update(req, res, next) {

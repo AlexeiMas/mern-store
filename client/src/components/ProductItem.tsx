@@ -19,7 +19,7 @@ const ProductItem: FC<TProductItemProps> = ({product}) => {
           width={200}
           variant="top"
           style={{objectFit: "cover"}}
-          src={process.env.REACT_APP_API_URL! + product.image}
+          src={process.env.REACT_APP_API_IMG! + product.image}
         />
         <Card.Body style={{cursor: "default"}}>
           <Card.Subtitle style={{height: '2.5rem'}}>{textLengthSlicer(product.title, 35)}</Card.Subtitle>

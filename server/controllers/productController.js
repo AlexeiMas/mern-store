@@ -28,15 +28,43 @@ class ProductController {
       next(ApiError.badRequest(e.message))
     }
   }
-  async getAll(req, res) {
-    await getAll(req, res, Product)
+  async getAll(req, res, next) {
+    await getAll(req, res, next, Product)
   }
 
-  async getOne(req, res) {
-    const {id, slug} = req.params
-    const product = await Product.findOne({$or: [{_id: id}, {slug}]})
-    res.json(product)
+  async getOne(req, res, next) {
+    try {
+      const {id, slug} = req.params
+      // const {id = null, slug = null} = req.params
+
+      // const filter = {};
+      // id && (filter._id = id)
+      // slug && (filter.slug = slug)
+
+      // const product = await Product.findOne({filter})
+      const product = await Product.findOne({$or: [{_id: id}, {slug}]})
+      res.json(product)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+
   }
+
+  // async getOne(req, res) {
+  //   const {slug} = req.params
+  //
+  //   // const filter = {};
+  //   // id && (filter._id = id)
+  //   // slug && (filter.slug = slug)
+  //   // const product = await Product.findOne({filter})
+  //   const product = await Product.findOne({slug})
+  //   res.json(product)
+  // }
+  //
+  // async getOneById(req, res) {
+  //   const {id} = req.params
+  //   const product = await Product.findOne({_id: id})
+  //   res.json(product)
 
   async update(req, res, next) {
     try {
@@ -70,7 +98,7 @@ class ProductController {
       const product = await Product.findById(_id)
       const imgPath = path.resolve(__dirname, '..', 'static', product.image)
       fs.unlinkSync(imgPath)
-      await Product.findOneAndRemove({_id})
+      await Product.findByIdAndRemove({_id})
       res.json({message: 'Product successfully deleted.'})
     } catch (e) {
       next(ApiError.badRequest(e.message))

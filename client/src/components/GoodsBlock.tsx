@@ -22,7 +22,7 @@ const GoodsBlock: FC<TGoodsBlock> = ({title, data, linkLabel}) => {
             data.docs.map(product =>
               <Col key={product._id}>
                 <Card onClick={() => navigate(`/${linkLabel}/` + product.slug)}>
-                  <Card.Img variant="top" src={process.env.REACT_APP_API_URL! + product.image} height={180} width={200}
+                  <Card.Img variant="top" src={process.env.REACT_APP_API_IMG! + product.image} height={180} width={200}
                             style={{objectFit: "cover"}}/>
                   <Card.Body>
                     <Card.Subtitle style={{height: '3rem', overflow: 'hidden'}}>{product.title}</Card.Subtitle>

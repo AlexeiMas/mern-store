@@ -19,7 +19,7 @@ const ProductPage = () => {
       {product &&
       <Row>
         <Col>
-          <Image fluid src={process.env.REACT_APP_API_URL! + product.image}/>
+          <Image fluid src={process.env.REACT_APP_API_IMG! + product.image}/>
         </Col>
         <Col className="h-auto">
           <Card border="light">

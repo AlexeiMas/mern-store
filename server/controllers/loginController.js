@@ -1,20 +1,10 @@
 const Admin = require("../models/Admin");
-const {validationResult} = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../error/ApiError")
 
 const login = async (req, res, next) => {
   try {
-    const errors = validationResult(req)
-
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array(),
-        message: 'Incorrect data in system enter.'
-      })
-    }
-
     const {email, password} = req.body
     const admin = await Admin.findOne({email})
 
