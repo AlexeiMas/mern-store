@@ -19,6 +19,11 @@ const schema = new Schema({
       type: String,
       required: true
     },
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+    },
     productItems: [{
       idProd: {type: Types.ObjectId, ref: 'Product', required: true},
       quantity: {

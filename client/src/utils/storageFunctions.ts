@@ -2,13 +2,21 @@ export type TCartItem = { id: string, quantity: number }
 
 export const getStorageItem = (itemKey: string): TCartItem[] | undefined => {
   const item = localStorage.getItem(itemKey)
-  if (item) {
+  if (itemKey === 'cart' && item) {
     const cart = JSON.parse(item)
     if (cart.length === 0) {
       removeItemCart(itemKey)
     } else {
       return cart
     }
+  }
+  return undefined
+}
+
+export  const getTokenItem = (itemKey: string): string | undefined => {
+  const item = localStorage.getItem(itemKey)
+  if (itemKey === 'token' && item) {
+    return item
   }
   return undefined
 }

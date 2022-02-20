@@ -7,7 +7,6 @@ const login = async (req, res, next) => {
   try {
     const {email, password} = req.body
     const admin = await Admin.findOne({email})
-
     if (!admin) {
       return next(ApiError.badRequest('Admin with such login is not found'))
     }
@@ -25,9 +24,13 @@ const login = async (req, res, next) => {
     })
 
     res
-      // .cookie('Access_token', 'Bearer ' + token, {
-      //   expires: new Date(Date.now() + 2 * 3600000) // cookie will be removed after 2 hours
+      // .cookie('token', 'Bearer ' + token, {
+      //   expires: new Date(Date.now() + 2 * 3600000), // cookie will be removed after 2 hours
+      //   httpOnly: false,
+      //   secure: true,
+      //   sameSite: "none"
       // })
+    // .cookie('Access_token', 'Bearer ' + token, {
       .json({token, adminId: admin.id})
 
   } catch (e) {

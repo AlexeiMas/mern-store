@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Card, Container, Row, Spinner} from "react-bootstrap";
-import {createPayment} from "../http/paymentAPI";
 import {useCartProducts} from "../hooks/useCartProducts";
 import CheckOutTable from "./CheckOutTable";
 
-const CheckOutResume = () => {
+const CheckOutResume = ({isValid}: React.PropsWithChildren<{ isValid: boolean }>) => {
   const {totalPrice} = useCartProducts()
+  const [isClicked, setIsClicked] = useState<boolean>(false)
 
-  const checkout = async () => {
-    await createPayment().then(data => window.location.href = data.url)
-  }
+  // const checkout = async () => {
+  //   await createPayment().then(data => window.location.href = data.url)
+  // }
 
   return (
     <Card
@@ -44,8 +44,19 @@ const CheckOutResume = () => {
           size="lg"
           type="submit"
           form="formOrder"
-          // onClick={() => checkout()}
+          disabled={!isValid}
+          onClick={() => setIsClicked(true)}
         >
+          {
+            isClicked &&
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          }
           CHECKOUT
         </Button>
       </Card.Footer>

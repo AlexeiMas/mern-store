@@ -1,5 +1,6 @@
 export const ADMIN_ROUTE = '/admin'
 export const LOGIN_ROUTE = `${ADMIN_ROUTE}/login`
+export const LOGIN_REQUEST = `/login`
 export const HOME_ROUTE = '/'
 export const PRODUCTS_ROUTE = '/catalog'
 export const CART_ROUTE = '/cart'
@@ -7,7 +8,7 @@ export const CHECKOUT_ROUTE = `${CART_ROUTE}/checkout`
 export const PRODUCT_ROUTE = '/product/:slug'
 export const SEARCH_ROUTE = '/search'
 
-export const ADMIN_DASHBOARD = '/dashboard'
+export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`
 export const CRUD_USERS = '/crud-users'
 export const CRUD_TAGS = '/crud-tags'
 export const CRUD_PRODUCTS = '/crud-products'
@@ -19,8 +20,9 @@ export const SUCCESS_ORDER = '/success'
 export const CANCEL_ORDER = '/cancel'
 
 export enum RoutesConst {
-  ADMIN_ROUTE = ADMIN_ROUTE.valueOf().valueOf(),
+  ADMIN_ROUTE = ADMIN_ROUTE.valueOf(),
   LOGIN_ROUTE = LOGIN_ROUTE.valueOf(),
+  LOGIN_REQUEST = LOGIN_REQUEST.valueOf(),
   HOME_ROUTE = HOME_ROUTE.valueOf(),
   PRODUCTS_ROUTE = PRODUCTS_ROUTE.valueOf(),
   CHECKOUT_ROUTE = CHECKOUT_ROUTE.valueOf(),

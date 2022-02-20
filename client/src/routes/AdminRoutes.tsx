@@ -9,7 +9,7 @@ const AdminRoutesWrapper = () => {
   return (
       <Routes>
         <Route element={<Admin/>}>
-          {isAuth && authRoutes.map(({path, Component}) =>
+          {authRoutes.map(({path, Component}) =>
             <Route key={path} path={path} element={<Component/>}/>
           )}
         </Route>

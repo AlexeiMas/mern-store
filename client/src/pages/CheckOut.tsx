@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Card, Col, Container, Row} from "react-bootstrap";
 import CheckOutForm from "../components/CheckOutForm";
 import CheckOutResume from "../components/CheckOutResume";
 
 const CheckOut = () => {
+  const [isValid, setIsValid] = useState<boolean>(false)
+
   return (
     <Container className="d-flex justify-content-center">
       <Card
@@ -20,10 +22,10 @@ const CheckOut = () => {
             </Row>
             <Row>
               <Col>
-                <CheckOutForm/>
+                <CheckOutForm setIsValid={setIsValid} />
               </Col>
               <Col md={6}>
-                <CheckOutResume/>
+                <CheckOutResume isValid={isValid} />
               </Col>
             </Row>
           </Container>
