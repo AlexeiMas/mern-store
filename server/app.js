@@ -21,6 +21,7 @@ const corsOptions = {
   optionsSuccessStatus: 204
 }
 app.use(cors(corsOptions))
+app.options("*", cors())
 // app.use(cors({
 //   origin: process.env.CLIENT_URL,
 //   credentials: true

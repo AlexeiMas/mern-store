@@ -3,7 +3,6 @@ const ApiError = require("../error/ApiError");
 const Order = require("../models/Order");
 
 const productItems = async (id) => {
-  // const {productItems, email} = await Order.findById("61f6b2d4365d791c458dfbb9").populate({
   const {_id, email, productItems} = await Order.findById(id).populate({
     path: 'productItems.idProd',
     select: ['title']
@@ -38,8 +37,9 @@ class PaymentController {
         success_url: `${process.env.SERVER_URL}/api/v1/payment/success?session_id={CHECKOUT_SESSION_ID}&order_id=${_id}`,
         cancel_url: `${process.env.CLIENT_URL}/cancel`
       })
-      // res.json({url: session.url})
-      res.redirect(303, session.url)
+
+      res.json({url: session.url})
+      // res.redirect(303, session.url)
     } catch (e) {
       next(ApiError.internal(e.message))
     }

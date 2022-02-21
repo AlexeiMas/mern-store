@@ -1,7 +1,8 @@
 import {
-  ADMIN_DASHBOARD,
+  ADMIN_ANALYTICS,
+  ADMIN_DASHBOARD, ADMIN_SETTINGS,
   CANCEL_ORDER, CART_ROUTE,
-  CHECKOUT_ROUTE,
+  CHECKOUT_ROUTE, CRUD_ORDERS, CRUD_TAGS, CRUD_TYPE_TAGS,
   CRUD_USERS,
   HOME_ROUTE,
   PRODUCT_ROUTE,
@@ -19,6 +20,12 @@ import AdminDashboard from "../pages/AdminDashboard"
 import Search from "../pages/Search";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
+import CrudTypeTags from "../pages/CrudTypeTags";
+import CrudTags from "../pages/CrudTags";
+import CrudOrders from "../pages/CrudOrders";
+import Analytics from "../pages/Analytics";
+import Settings from "../pages/Settings";
+import TypeTagPage from "../pages/cruds/TypeTagPage";
 
 export type TRoutes = {
   path: string,
@@ -33,6 +40,30 @@ export const authRoutes: TRoutes[] = [
   {
     path: CRUD_USERS,
     Component: CrudUsers
+  },
+  {
+    path: CRUD_TYPE_TAGS,
+    Component: CrudTypeTags
+  },
+  {
+    path: `${CRUD_TYPE_TAGS}/:id`,
+    Component: TypeTagPage
+  },
+  {
+    path: CRUD_TAGS,
+    Component: CrudTags
+  },
+  {
+    path: CRUD_ORDERS,
+    Component: CrudOrders
+  },
+  {
+    path: ADMIN_ANALYTICS,
+    Component: Analytics
+  },
+  {
+    path: ADMIN_SETTINGS,
+    Component: Settings
   }
 ]
 

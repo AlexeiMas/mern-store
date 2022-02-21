@@ -24,9 +24,8 @@ const CheckOutForm = ({setIsValid}: React.PropsWithChildren<{setIsValid: React.D
   }, [products])
 
   const orderHandler = (data: Omit<TOrderData, 'productItems'>) => {
-    createOrder({...data, productItems}).then(data => createPayment(data._id))
+    createOrder({...data, productItems}).then(data => createPayment(data._id).then(link => window.location.href = link.url))
   }
-
 
   return (
     <Formik

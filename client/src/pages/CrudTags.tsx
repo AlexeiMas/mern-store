@@ -1,14 +1,14 @@
 import React from 'react';
 import {Container, Row} from "react-bootstrap";
 
-const CrudUsers = () => {
+const CrudTags = () => {
   return (
     <Container>
       <Row>
-        <h1>CRUD USERS</h1>
+        <h1>CRUD Tags</h1>
       </Row>
     </Container>
   );
 };
 
-export default CrudUsers;
+export default CrudTags;

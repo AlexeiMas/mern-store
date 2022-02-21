@@ -1,14 +1,14 @@
 import React from 'react';
 import {Container, Row} from "react-bootstrap";
 
-const CrudUsers = () => {
+const CrudOrders = () => {
   return (
     <Container>
       <Row>
-        <h1>CRUD USERS</h1>
+        <h1>CRUD ORDERS</h1>
       </Row>
     </Container>
   );
 };
 
-export default CrudUsers;
+export default CrudOrders;

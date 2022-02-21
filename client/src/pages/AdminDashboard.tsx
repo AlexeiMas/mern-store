@@ -5,7 +5,7 @@ const AdminDashboard = () => {
   return (
     <Container>
       <Row>
-        Admin Dashboard
+        <h1>Admin Dashboard</h1>
       </Row>
     </Container>
   );

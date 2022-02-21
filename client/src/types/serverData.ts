@@ -29,3 +29,6 @@ export type TServerData = {
   totalDocs: number
   totalPages: number
 }
+
+export type TResponseDataWithArrays = Omit<TServerData, 'docs'> & {docs: TDocs[]}
+export type TResponseData = Omit<TServerData, 'docs'> & {docs: {_id: string, [key: string]: string | number}[]}

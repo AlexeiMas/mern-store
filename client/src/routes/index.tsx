@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {ADMIN_ROUTE, HOME_ROUTE, LOGIN_ROUTE, PRODUCTS_ROUTE} from "../utils/consts";
+import {ADMIN_ROUTE, HOME_ROUTE, LOGIN_ROUTE} from "../utils/consts";
 import AdminRoutesWrap from "./AdminRoutesWrap";
 import ShopRoutes from "./ShopRoutes";
 import Auth from "../pages/Auth";

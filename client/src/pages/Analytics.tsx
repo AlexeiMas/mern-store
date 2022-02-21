@@ -1,14 +1,14 @@
 import React from 'react';
 import {Container, Row} from "react-bootstrap";
 
-const CrudUsers = () => {
+const Analytics = () => {
   return (
     <Container>
       <Row>
-        <h1>CRUD USERS</h1>
+        <h1>Analytics page</h1>
       </Row>
     </Container>
   );
 };
 
-export default CrudUsers;
+export default Analytics;

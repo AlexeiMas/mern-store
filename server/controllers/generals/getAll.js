@@ -12,6 +12,8 @@ module.exports = async function getAll(req, res, next, modelName) {
       page: data.page || 1,
       limit: data.limit || 5,
       pagination: !data.pagination,
+      select: '-__v',
+      // projection: {__v: false},
       collation: {
         locale: 'en'
       }

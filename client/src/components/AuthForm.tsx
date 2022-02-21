@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import {Formik} from 'formik'
 import {Button, Form, Spinner} from "react-bootstrap"
 import {login} from "../http/loginAPI"
-import {ADMIN_DASHBOARD, LOGIN_ROUTE} from "../utils/consts"
+import {DASHBOARD, LOGIN_ROUTE} from "../utils/consts"
 import {useLocation, useNavigate} from "react-router-dom"
 
 const schema = yup.object().shape({
@@ -24,7 +24,7 @@ const AuthForm = () => {
       const response = await login(email, password)
       if (response && response.statusText === "OK") {
         localStorage.setItem('token', 'Bearer ' + response['data'].token)
-        navigate(ADMIN_DASHBOARD)
+        navigate(DASHBOARD)
       }
     }
   }

@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Accordion, Form, Spinner} from "react-bootstrap";
-import {TDocs, TServerData} from "../types/serverData";
+import {TResponseDataWithArrays, TServerData} from "../types/serverData";
 import {useLocation, useNavigate} from "react-router-dom";
 import {fetchTagTypes} from "../http/tagTypeAPI";
 import {fetchTags} from '../http/tagAPI';
@@ -13,7 +13,7 @@ const TagTypeBar: FC<Omit<TShopFiltration, "setProductsCount">> = (
   const navigate = useNavigate()
   const {pathname} = useLocation()
   const [tagTypes, setTagTypes] = useState<TServerData & { tagTypeId: string }>()
-  const [tags, setTags] = useState<Omit<TServerData, 'docs'> & { docs: TDocs[] }>()
+  const [tags, setTags] = useState<TResponseDataWithArrays>()
   const [products, setProducts] = useState<TServerData>()
 
   useEffect(() => {

@@ -8,13 +8,15 @@ export const CHECKOUT_ROUTE = `${CART_ROUTE}/checkout`
 export const PRODUCT_ROUTE = '/product/:slug'
 export const SEARCH_ROUTE = '/search'
 
-export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`
-export const CRUD_USERS = '/crud-users'
-export const CRUD_TAGS = '/crud-tags'
-export const CRUD_PRODUCTS = '/crud-products'
-export const CRUD_ORDERS = '/crud-orders'
-export const ADMIN_SETTINGS = '/settings'
-export const ADMIN_ANALYTICS = '/analytics'
+export const ADMIN_DASHBOARD = '/dashboard'
+export const DASHBOARD = ADMIN_ROUTE+ADMIN_DASHBOARD
+export const CRUD_USERS = `/crud-users`
+export const CRUD_TYPE_TAGS = `/crud-type-tags`
+export const CRUD_TAGS = `/crud-tags`
+export const CRUD_PRODUCTS = `/crud-products`
+export const CRUD_ORDERS = `/crud-orders`
+export const ADMIN_SETTINGS = `/settings`
+export const ADMIN_ANALYTICS = `/analytics`
 
 export const SUCCESS_ORDER = '/success'
 export const CANCEL_ORDER = '/cancel'
@@ -30,7 +32,9 @@ export enum RoutesConst {
   SEARCH_ROUTE = SEARCH_ROUTE.valueOf(),
   CART_ROUTE = CART_ROUTE.valueOf(),
   ADMIN_DASHBOARD = ADMIN_DASHBOARD.valueOf(),
+  DASHBOARD = DASHBOARD.valueOf(),
   CRUD_USERS = CRUD_USERS.valueOf(),
+  CRUD_TYPE_TAGS = CRUD_TYPE_TAGS.valueOf(),
   CRUD_TAGS = CRUD_TAGS.valueOf(),
   CRUD_PRODUCTS = CRUD_PRODUCTS.valueOf(),
   CRUD_ORDERS = CRUD_ORDERS.valueOf(),
