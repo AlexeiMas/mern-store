@@ -28,14 +28,16 @@ const CrudTypeTags = () => {
   const tableKeys = typeTags && Object.keys(typeTags.docs[0]).map(name =>
     <th key={name} onClick={() => {
       setSortD(prevState => prevState === 1 ? -1 : 1)
-      setCheckedFilters({sort: [name,String(sortD)]})}
+      setCheckedFilters({...checkedFilters, sort: [name,String(sortD)]})}
     }>
+      {checkedFilters['sort'] && (checkedFilters['sort'][0] === name) && (checkedFilters['sort'][1] === String(-1)) && <i className="bi bi-sort-down"/>}
+      {checkedFilters['sort'] && (checkedFilters['sort'][0] === name) && (checkedFilters['sort'][1] === String(1)) && <i className="bi bi-sort-up"/>}
       {name}
     </th>
   )
 
-  const tableValues = (data: { [key: string]: string | number }) => typeTags && Object.values(data).map((value, i) =>
-    <td key={i}>{value}</td>
+  const tableValues = (data: { [key: string]: string | number }) => typeTags && Object.values(data).map((value, i, arr) =>
+    <td key={i} width={`${(100/arr.length)}%`}>{value}</td>
   )
 
   console.log(checkedFilters)
@@ -49,7 +51,7 @@ const CrudTypeTags = () => {
         {
           typeTags &&
           <>
-            <Table striped bordered hover>
+            <Table striped bordered hover responsive>
               <thead>
               <tr>{tableKeys}</tr>
               </thead>
