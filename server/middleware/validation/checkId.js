@@ -1,3 +1,3 @@
-const {query} = require('express-validator')
+const {param} = require('express-validator')
 
-module.exports = query('id', 'field must be not empty').isMongoId().notEmpty()
+module.exports = param('id', 'field must be not empty').isMongoId().notEmpty()

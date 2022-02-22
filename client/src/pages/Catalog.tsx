@@ -4,7 +4,7 @@ import {Col, Row} from "react-bootstrap"
 import TagTypeBar from "../components/TagTypeBar"
 import {RoutesConst} from "../utils/consts";
 import {TFiltersProduct} from "../types/checkerFiltration"
-import ProductOptionsBlock from "../components/ProductOptionsBlock"
+import ListOptionsBlock from "../components/ListOptionsBlock"
 import {fetchProducts} from "../http/productAPI"
 
 const Catalog: FC<TFiltersProduct> = ({checkedFilters, setCheckedFilters}) => {
@@ -26,7 +26,7 @@ const Catalog: FC<TFiltersProduct> = ({checkedFilters, setCheckedFilters}) => {
       <Col md={9}>
         {
           productsCount !== 0 &&
-          <ProductOptionsBlock
+          <ListOptionsBlock
               checkedFilters={checkedFilters}
               setCheckedFilters={setCheckedFilters}
               productsCount={productsCount}

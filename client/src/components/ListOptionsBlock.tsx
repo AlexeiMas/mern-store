@@ -2,9 +2,16 @@ import React, {FC, useEffect, useState} from 'react';
 import {Col, Form, Row} from "react-bootstrap"
 import {TFiltersProduct} from "../types/checkerFiltration"
 
-export type TProductOptionsBlock = TFiltersProduct & {productsCount: number}
+export type TListOptionsBlock = TFiltersProduct & { productsCount: number, isLimit?: boolean, isSort?: boolean }
 
-const ProductOptionsBlock: FC<TProductOptionsBlock> = ({checkedFilters, setCheckedFilters, productsCount}) => {
+const ListOptionsBlock: FC<TListOptionsBlock> = (
+  {
+    checkedFilters,
+    setCheckedFilters,
+    productsCount,
+    isLimit = true,
+    isSort = true
+  }) => {
   const [sort, setSort] = useState<string>(checkedFilters.sort && checkedFilters.sort.join(','))
   const [limit, setLimit] = useState<string>('5')
 
@@ -13,7 +20,6 @@ const ProductOptionsBlock: FC<TProductOptionsBlock> = ({checkedFilters, setCheck
     if (!productsCount) {
       Object.defineProperty(filtersData, 'page', {value: []})
     }
-    console.log(filtersData)
     setCheckedFilters(filtersData)
   }, [limit])
 
@@ -29,7 +35,8 @@ const ProductOptionsBlock: FC<TProductOptionsBlock> = ({checkedFilters, setCheck
     <Row>
       <Col md={5} className="ms-auto w-auto">
         <Row>
-          <Col md={4}>
+          {isLimit &&
+          <Col>
             <Form.Select
               size="lg"
               name="limit"
@@ -43,6 +50,8 @@ const ProductOptionsBlock: FC<TProductOptionsBlock> = ({checkedFilters, setCheck
               <option value="20">20</option>
             </Form.Select>
           </Col>
+          }
+          {isSort &&
           <Col md={8}>
             <Form.Select size="lg" name="sort" onChange={(e) => setSort(e.target.value)}>
               <option disabled>Sort By</option>
@@ -52,10 +61,11 @@ const ProductOptionsBlock: FC<TProductOptionsBlock> = ({checkedFilters, setCheck
               <option value="price,-1">Price DESC</option>
             </Form.Select>
           </Col>
+          }
         </Row>
       </Col>
     </Row>
   );
 };
 
-export default ProductOptionsBlock;
+export default ListOptionsBlock;

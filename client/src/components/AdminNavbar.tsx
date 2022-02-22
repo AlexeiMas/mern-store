@@ -15,7 +15,12 @@ const AdminNavbar = () => {
   const rmSlash = (value: string): string => value.replaceAll('/', '')
 
   return (
-    <Navbar bg={'dark'} variant={'dark'} style={{alignItems: 'flex-start', minHeight: '100vh'}}>
+    <Navbar
+      className="align-items-start position-sticky top-0 bottom-0 start-0"
+      bg={'dark'}
+      variant={'dark'}
+      style={{minHeight: '100vh'}}
+    >
       <Container className="flex-column">
         <Navbar.Brand as={NavLink} to={rmSlash(ADMIN_DASHBOARD)} className="fs-2">Simple Store</Navbar.Brand>
         <Nav defaultActiveKey={ADMIN_DASHBOARD} className="flex-column">

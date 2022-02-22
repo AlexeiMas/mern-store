@@ -4,7 +4,7 @@ import {Col, Row} from "react-bootstrap"
 import {useLocation} from "react-router-dom";
 import {searchByName} from "../http/searchAPI"
 import {RoutesConst} from "../utils/consts"
-import ProductOptionsBlock from "../components/ProductOptionsBlock"
+import ListOptionsBlock from "../components/ListOptionsBlock"
 import {TCheckerStateItem} from "../types/checkerFiltration"
 import {decodeFromUrlQueriesFormat} from "../utils/helperFunctions"
 import TagTypeBar from "../components/TagTypeBar"
@@ -31,7 +31,7 @@ const Search = () => {
       <Col md={9}>
         {
           productsCount !== 0 &&
-          <ProductOptionsBlock
+          <ListOptionsBlock
               checkedFilters={checkedFilters}
               setCheckedFilters={setCheckedFilters}
               productsCount={productsCount}
