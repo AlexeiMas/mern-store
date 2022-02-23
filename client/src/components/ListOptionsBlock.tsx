@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {Col, Form, Row} from "react-bootstrap"
 import {TFiltersProduct} from "../types/checkerFiltration"
 
-export type TListOptionsBlock = TFiltersProduct & { productsCount: number, isLimit?: boolean, isSort?: boolean }
+export type TListOptionsBlock = TFiltersProduct & { productsCount: number, isLimit?: boolean, isSort?: boolean, widthBlockCol?: number }
 
 const ListOptionsBlock: FC<TListOptionsBlock> = (
   {
@@ -10,7 +10,9 @@ const ListOptionsBlock: FC<TListOptionsBlock> = (
     setCheckedFilters,
     productsCount,
     isLimit = true,
-    isSort = true
+    isSort = true,
+    widthBlockCol = 5,
+    children
   }) => {
   const [sort, setSort] = useState<string>(checkedFilters.sort && checkedFilters.sort.join(','))
   const [limit, setLimit] = useState<string>('5')
@@ -33,8 +35,9 @@ const ListOptionsBlock: FC<TListOptionsBlock> = (
 
   return (
     <Row>
-      <Col md={5} className="ms-auto w-auto">
+      <Col md={widthBlockCol} className="ms-auto">
         <Row>
+          {children}
           {isLimit &&
           <Col>
             <Form.Select
@@ -52,7 +55,7 @@ const ListOptionsBlock: FC<TListOptionsBlock> = (
           </Col>
           }
           {isSort &&
-          <Col md={8}>
+          <Col md={12} lg={8}>
             <Form.Select size="lg" name="sort" onChange={(e) => setSort(e.target.value)}>
               <option disabled>Sort By</option>
               <option value="title,1">Title ASC</option>

@@ -74,7 +74,7 @@ const TypeTagPage = () => {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="TypeTagSlug">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Slug</Form.Label>
                 <Form.Control
                   name={"slug"}
                   aria-autocomplete="none"

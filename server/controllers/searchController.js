@@ -6,7 +6,7 @@ const searchController = async (req, res, next) => {
   try {
     let data = {}
     if (req.queries) {
-      data = JSON.parse(req.queries)
+      data = req.queries
     }
     const options = {
       page: data.page || 1,

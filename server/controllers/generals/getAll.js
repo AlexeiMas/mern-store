@@ -6,7 +6,7 @@ module.exports = async function getAll(req, res, next, modelName) {
   try {
     let data = {}
     if (req.queries) {
-      data = JSON.parse(req.queries)
+      data = req.queries
     }
     const options = {
       page: data.page || 1,
@@ -21,6 +21,19 @@ module.exports = async function getAll(req, res, next, modelName) {
     if (data.sort) {
       options["sort"] = {[data['sort'][0]]: data['sort'][1] || 1}
     }
+    if (data.search) {
+      const [searchKey, searchValue] = data.search;
+      const result = await modelName.paginate({
+        [searchKey]: {
+          $regex: searchValue,
+          $options: 'i'
+        }
+      }, options, function (err, data) {
+        return data
+      })
+      return res.json(result)
+    }
+
     const reservedKeys = [...Object.keys(options), 'sort']
     const filtersKeys = Object.keys(data)
     const filteredData = filtersKeys.reduce((acc, el) =>

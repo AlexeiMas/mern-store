@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
       }
       myJson[hash[0]] = hash[1];
     }
-    req.queries = JSON.stringify(myJson)
+    req.queries = myJson
   }
   next()
 }

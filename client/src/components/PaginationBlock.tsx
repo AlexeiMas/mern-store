@@ -2,6 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {Pagination} from "react-bootstrap";
 import {TResponseDataWithArrays, TServerData} from "../types/serverData";
 import {TCheckerStateItem} from "../types/checkerFiltration";
+import NoMatch from "./NoMatch";
 
 export type TPaginationBlock = {
   data: TServerData | TResponseDataWithArrays,
@@ -51,7 +52,7 @@ const PaginationBlock: FC<TPaginationBlock> = ({data, setDocsListCount, checkedF
       {
         data.totalPages > 1
           ? <Pagination style={{marginLeft: '.75rem'}}>{pagination}</Pagination>
-          : data.docs.length < 1 && <p className="fs-1 fst-italic text-center">No match for your request...</p>
+          : data.docs.length < 1 && <NoMatch/>
       }
     </>
   );
