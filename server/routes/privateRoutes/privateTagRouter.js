@@ -8,7 +8,7 @@ const validationResultMiddleware = require('../../middleware/validationResultMid
 
 const router = Router()
 
-router.post('/create', authMiddleware, [checkTitle, checkSlug, checkId], validationResultMiddleware, create)
+router.post('/create', authMiddleware, [checkTitle, checkSlug], validationResultMiddleware, create)
 router.put('/:id', authMiddleware, [checkTitle, checkSlug, checkId], validationResultMiddleware, update)
 router.delete('/:id', authMiddleware, [checkId], validationResultMiddleware, remove)
 

@@ -26,6 +26,7 @@ import CrudOrders from "../pages/CrudOrders";
 import Analytics from "../pages/Analytics";
 import Settings from "../pages/Settings";
 import TypeTagPage from "../pages/cruds/TypeTagPage";
+import TagPage from "../pages/cruds/TagPage"
 
 export type TRoutes = {
   path: string,
@@ -52,6 +53,10 @@ export const authRoutes: TRoutes[] = [
   {
     path: CRUD_TAGS,
     Component: CrudTags
+  },
+  {
+    path: `${CRUD_TAGS}/:id`,
+    Component: TagPage
   },
   {
     path: CRUD_ORDERS,
