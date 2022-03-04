@@ -25,7 +25,7 @@ const TagTypeSelect: FC<TTagTypeSelect> = ({id, handleChange}) => {
       onChange={handleChange}
       value={id}
     >
-      <option disabled>Tag Type ID</option>
+      <option value={''} disabled>Choose some type</option>
       {options}
     </Form.Select>
   );

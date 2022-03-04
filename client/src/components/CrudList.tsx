@@ -6,6 +6,7 @@ import NoMatch from "./NoMatch"
 import {TResponseData} from "../types/serverData"
 import {TCheckerDispatch, TCheckerStateItem} from "../types/checkerFiltration"
 import {useNavigate} from "react-router-dom"
+import {textLengthSlicer} from "../utils/textLengthSlicer"
 
 export type TCrudList = {
   title: string
@@ -52,8 +53,8 @@ const CrudList: FC<TCrudList> = (
   const tableValues = (data: { [key: string]: string | number }) =>
     responseData && responseData.docs.length !== 0
     &&
-    Object.values(data).map((value, i, arr) =>
-      <td key={i} width={`${(100 / arr.length)}%`}>{value}</td>
+    Object.entries(data).map((value, i, arr) =>
+      <td key={i} width={`${(100 / arr.length)}%`}>{textLengthSlicer(String(value[1]), 40)}</td>
     )
 
   return (

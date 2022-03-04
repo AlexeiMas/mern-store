@@ -5,7 +5,7 @@ import {
   ADMIN_ANALYTICS,
   ADMIN_DASHBOARD,
   ADMIN_SETTINGS,
-  CRUD_ORDERS,
+  CRUD_ORDERS, CRUD_PRODUCTS,
   CRUD_TAGS,
   CRUD_TYPE_TAGS,
   CRUD_USERS
@@ -28,9 +28,10 @@ const AdminNavbar = () => {
           <Nav.Link as={NavLink} to={rmSlash(CRUD_USERS)} eventKey="link-1">Users CRUD</Nav.Link>
           <Nav.Link as={NavLink} to={rmSlash(CRUD_TYPE_TAGS)} eventKey="link-2">Type tags CRUD</Nav.Link>
           <Nav.Link as={NavLink} to={rmSlash(CRUD_TAGS)} eventKey="link-3">Tags CRUD</Nav.Link>
-          <Nav.Link as={NavLink} to={rmSlash(CRUD_ORDERS)} eventKey="link-4">Orders CRUD</Nav.Link>
-          <Nav.Link as={NavLink} to={rmSlash(ADMIN_ANALYTICS)} eventKey="link-5">Analytics</Nav.Link>
-          <Nav.Link as={NavLink} to={rmSlash(ADMIN_SETTINGS)} eventKey="link-6">Settings</Nav.Link>
+          <Nav.Link as={NavLink} to={rmSlash(CRUD_PRODUCTS)} eventKey="link-4">Products CRUD</Nav.Link>
+          <Nav.Link as={NavLink} to={rmSlash(CRUD_ORDERS)} eventKey="link-5">Orders CRUD</Nav.Link>
+          <Nav.Link as={NavLink} to={rmSlash(ADMIN_ANALYTICS)} eventKey="link-6">Analytics</Nav.Link>
+          <Nav.Link as={NavLink} to={rmSlash(ADMIN_SETTINGS)} eventKey="link-7">Settings</Nav.Link>
         </Nav>
       </Container>
     </Navbar>

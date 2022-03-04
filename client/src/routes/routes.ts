@@ -2,7 +2,7 @@ import {
   ADMIN_ANALYTICS,
   ADMIN_DASHBOARD, ADMIN_SETTINGS,
   CANCEL_ORDER, CART_ROUTE,
-  CHECKOUT_ROUTE, CRUD_ORDERS, CRUD_TAGS, CRUD_TYPE_TAGS,
+  CHECKOUT_ROUTE, CRUD_ORDERS, CRUD_PRODUCTS, CRUD_TAGS, CRUD_TYPE_TAGS,
   CRUD_USERS,
   HOME_ROUTE,
   PRODUCT_ROUTE,
@@ -27,6 +27,10 @@ import Analytics from "../pages/Analytics";
 import Settings from "../pages/Settings";
 import TypeTagPage from "../pages/cruds/TypeTagPage";
 import TagPage from "../pages/cruds/TagPage"
+import CrudProducts from "../pages/CrudProducts"
+import UserPage from "../pages/cruds/UserPage"
+import ProductPageAdmin from "../pages/cruds/ProductPageAdmin"
+import OrderPage from "../pages/cruds/OrderPage"
 
 export type TRoutes = {
   path: string,
@@ -41,6 +45,10 @@ export const authRoutes: TRoutes[] = [
   {
     path: CRUD_USERS,
     Component: CrudUsers
+  },
+  {
+    path: `${CRUD_USERS}/:id`,
+    Component: UserPage
   },
   {
     path: CRUD_TYPE_TAGS,
@@ -59,8 +67,20 @@ export const authRoutes: TRoutes[] = [
     Component: TagPage
   },
   {
+    path: CRUD_PRODUCTS,
+    Component: CrudProducts
+  },
+  {
+    path: `${CRUD_PRODUCTS}/:id`,
+    Component: ProductPageAdmin
+  },
+  {
     path: CRUD_ORDERS,
     Component: CrudOrders
+  },
+  {
+    path: `${CRUD_ORDERS}/:id`,
+    Component: OrderPage
   },
   {
     path: ADMIN_ANALYTICS,

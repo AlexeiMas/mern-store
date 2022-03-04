@@ -17,7 +17,7 @@ const CrudModal: FC<TCrudModal> = (
   const modalTitle = title.replace('CRUD', '').trim().slice(0, -1)
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} size={"xl"}>
       <Modal.Header closeButton>
         <Modal.Title>Create new {modalTitle}</Modal.Title>
       </Modal.Header>
