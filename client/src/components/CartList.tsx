@@ -1,6 +1,6 @@
 import React, {FC, useContext} from 'react';
 import {Button, Col, Container, ListGroup, Row} from "react-bootstrap";
-import {removeItemCart, TCartItem} from "../utils/storageFunctions";
+import {removeStorageItem, TCartItem} from "../utils/storageFunctions";
 import CartItem from "./CartItem";
 import CartDummy from "./CartDummy";
 import {CartDispatchContext, CartStateContext} from "../context/CartContext";
@@ -27,7 +27,7 @@ const CartList: FC<TCartList> = ({products}) => {
                     style={{width: "fit-content"}}
                     variant={"link"}
                     onClick={() => {
-                      removeItemCart('cart')
+                      removeStorageItem('cart')
                       dispatch([])
                     }}
                 >Remove all</Button>

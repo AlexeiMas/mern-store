@@ -66,8 +66,7 @@ const CrudProducts = () => {
   }
 
   const createHandler = (items: FormikValues) => {
-    createProduct(items as TProductAPI).then((data => console.log(data)), (reason => console.error(reason)))
-    setCheckedFilters({page: []})
+    createProduct(items as TProductAPI).then((data => setCheckedFilters({page: []})), (reason => console.error(reason)))
     setModal(false)
   }
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useLocation, useNavigate} from "react-router-dom";
-import {fetchOrders, removeOrder, updateOrder} from "../../http/orderAPI";
+import {fetchOrderDataById, removeOrder, updateOrder} from "../../http/orderAPI";
 import {TDocs} from "../../types/serverData";
 import {Container, Row} from "react-bootstrap";
 import * as yup from 'yup'
@@ -54,7 +54,7 @@ const OrderPage = () => {
   }, [data])
 
   useEffect(() => {
-    fetchOrders(`_id=${id}`).then(data => setData(data.docs[0]))
+    fetchOrderDataById(id).then(data => setData(data))
   }, [])
 
 

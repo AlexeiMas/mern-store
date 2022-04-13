@@ -1,22 +1,30 @@
 import React from 'react';
-import {Container, Nav, Navbar} from "react-bootstrap";
-import {NavLink} from "react-router-dom";
+import {Button, Container, Nav, Navbar, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {NavLink, useNavigate} from "react-router-dom";
 import {
   ADMIN_ANALYTICS,
   ADMIN_DASHBOARD,
   ADMIN_SETTINGS,
-  CRUD_ORDERS, CRUD_PRODUCTS,
+  CRUD_ORDERS,
+  CRUD_PRODUCTS,
   CRUD_TAGS,
   CRUD_TYPE_TAGS,
-  CRUD_USERS
+  CRUD_USERS, RoutesConst
 } from "../utils/consts";
+import {removeStorageItem} from "../utils/storageFunctions"
 
 const AdminNavbar = () => {
+  const navigate = useNavigate()
   const rmSlash = (value: string): string => value.replaceAll('/', '')
+
+  const signOutHandler = () => {
+    removeStorageItem('token')
+    navigate(RoutesConst.LOGIN_ROUTE)
+  }
 
   return (
     <Navbar
-      className="align-items-start position-sticky top-0 bottom-0 start-0"
+      className="flex-column justify-content-between position-sticky top-0 bottom-0 start-0"
       bg={'dark'}
       variant={'dark'}
       style={{minHeight: '100vh'}}
@@ -33,6 +41,16 @@ const AdminNavbar = () => {
           <Nav.Link as={NavLink} to={rmSlash(ADMIN_ANALYTICS)} eventKey="link-6">Analytics</Nav.Link>
           <Nav.Link as={NavLink} to={rmSlash(ADMIN_SETTINGS)} eventKey="link-7">Settings</Nav.Link>
         </Nav>
+      </Container>
+      <Container className="justify-content-center pb-4">
+        <OverlayTrigger
+          placement="top"
+          overlay={<Tooltip id="button-tooltip">Click for sign out</Tooltip>}
+        >
+          <Button variant="danger" onClick={signOutHandler}>
+            <span className="m-4">Log out</span>
+          </Button>
+        </OverlayTrigger>
       </Container>
     </Navbar>
   );

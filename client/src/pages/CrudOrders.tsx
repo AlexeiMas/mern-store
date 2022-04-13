@@ -56,8 +56,7 @@ const CrudOrders = () => {
   }
 
   const createHandler = (items: FormikValues) => {
-    createOrder(items as TOrderData).then((data => console.log(data)), (reason => console.error(reason)))
-    setCheckedFilters({page: []})
+    createOrder(items as TOrderData).then((data => setCheckedFilters({page: []})), (reason => console.error(reason)))
     setModal(false)
   }
 

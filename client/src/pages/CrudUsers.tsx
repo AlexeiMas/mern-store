@@ -46,8 +46,7 @@ const CrudUsers = () => {
   }
 
   const createHandler = (items: FormikValues) => {
-    createUser(items as TUserAPI).then((data => console.log(data)), (reason => console.error(reason)))
-    setCheckedFilters({page: []})
+    createUser(items as TUserAPI).then((data => setCheckedFilters({page: []})), (reason => console.error(reason)))
     setModal(false)
   }
 

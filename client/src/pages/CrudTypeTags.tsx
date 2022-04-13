@@ -45,8 +45,7 @@ const CrudTypeTags = () => {
   }
 
   const createHandler = (items: FormikValues) => {
-    createTagType(items as TTagTypeAPI).then((data => console.log(data)), (reason => console.error(reason)))
-    setCheckedFilters({page: []})
+    createTagType(items as TTagTypeAPI).then((data => setCheckedFilters({page: []})), (reason => console.error(reason)))
     setModal(false)
   }
 

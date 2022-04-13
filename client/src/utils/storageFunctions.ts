@@ -5,7 +5,7 @@ export const getStorageItem = (itemKey: string): TCartItem[] | undefined => {
   if (itemKey === 'cart' && item) {
     const cart = JSON.parse(item)
     if (cart.length === 0) {
-      removeItemCart(itemKey)
+      removeStorageItem(itemKey)
     } else {
       return cart
     }
@@ -40,7 +40,7 @@ export const setItemCart = (id: TCartItem['id'], quantity: TCartItem['quantity']
   localStorage.setItem('cart', JSON.stringify(current));
 }
 
-export const removeItemCart = (itemKey: string): void | undefined => {
+export const removeStorageItem = (itemKey: string): void | undefined => {
   const item = localStorage.getItem(itemKey)
   if (item) {
     localStorage.removeItem(itemKey)

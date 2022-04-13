@@ -28,3 +28,24 @@ export const decodeFromUrlQueriesFormat = (data: string, routeSlug: RoutesConst)
       return acc
     }, {})
 }
+
+export const toEqualsLen = ([...nums]: number[], convertTo?: 'minLen' | 'maxLen'): number[] => {
+  if (!convertTo || convertTo === "minLen") {
+    const min = nums.reduce((acc, el): number => {
+      return (el.toString().length < acc.toString().length || acc === 0) ? el.toString().length : acc
+    }, 0)
+    return nums.map(item => Number(item.toString().slice(0, min)))
+  } else {
+    const max = nums.reduce((acc, el): number => {
+      return (el.toString().length > acc.toString().length) ? el.toString().length : acc
+    }, 0)
+    return nums.map(item => {
+      if (item.toString().length < max) {
+        const temp = item.toString();
+        const difference = max - temp.length;
+        return Number(temp.concat('0'.repeat(difference)))
+      } else
+        return item
+    })
+  }
+}

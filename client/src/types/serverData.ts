@@ -30,5 +30,27 @@ export type TServerData = {
   totalPages: number
 }
 
+export type TOrderProductItem = {
+  _id: string
+  idProd: string,
+  quantity: number
+  price: number
+}
+
+export type TOrderItems = {
+  checkPay: string
+  createdDate: string
+  deliveryAddress: string
+  email: string
+  firstName: string
+  phone: number
+  productItems: TOrderProductItem[]
+  secondName: string
+  slug: number
+  totalPrice: number
+  updatedDate: string
+  _id: string
+}
+
 export type TResponseDataWithArrays = Omit<TServerData, 'docs'> & {docs: TDocs[]}
 export type TResponseData = Omit<TServerData, 'docs'> & {docs: {_id: string, [key: string]: string | number}[]}
